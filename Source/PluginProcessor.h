@@ -55,5 +55,7 @@ public:
 
 private:
     //==============================================================================
+    juce::AudioParameterFloat* drive;
+    juce::AudioParameterFloat* level;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (BevyDistortionAudioProcessor)
 };
