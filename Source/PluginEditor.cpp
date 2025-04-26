@@ -17,11 +17,11 @@ BevyDistortionAudioProcessorEditor::BevyDistortionAudioProcessorEditor (BevyDist
     // editor's size to whatever you need it to be.
     setSize (400, 300);
 
-    knob.setSliderStyle(juce::Slider::Rotary);
-    knob.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 50, 20);
-    knob.setRange(0.0, 1.0, 0.01); // Example range: 0.0 to 1.0 with 0.01 steps
-    knob.setValue(0.5); // Default value
-    addAndMakeVisible(knob); // Add the knob to the editor
+    //knob.setSliderStyle(juce::Slider::Rotary);
+    //knob.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 50, 20);
+    //knob.setRange(0.0, 1.0, 0.01); // Example range: 0.0 to 1.0 with 0.01 steps
+    //knob.setValue(0.5); // Default value
+    //addAndMakeVisible(knob); // Add the knob to the editor
 }
 
 BevyDistortionAudioProcessorEditor::~BevyDistortionAudioProcessorEditor()
