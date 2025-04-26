@@ -54,6 +54,7 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
 private:
+	juce::AudioProcessorValueTreeState parameters;
     juce::AudioParameterFloat* drive;
     juce::AudioParameterFloat* level;
     //==============================================================================

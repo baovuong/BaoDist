@@ -14,10 +14,12 @@
 //==============================================================================
 /**
 */
+typedef juce::AudioProcessorValueTreeState::SliderAttachment SliderAttachment;
+
 class BevyDistortionAudioProcessorEditor  : public juce::AudioProcessorEditor
 {
 public:
-    BevyDistortionAudioProcessorEditor (BevyDistortionAudioProcessor&);
+    BevyDistortionAudioProcessorEditor (BevyDistortionAudioProcessor&, juce::AudioProcessorValueTreeState&);
     ~BevyDistortionAudioProcessorEditor() override;
 
     //==============================================================================
@@ -28,6 +30,19 @@ private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     BevyDistortionAudioProcessor& audioProcessor;
+
+	
+	juce::Label titleLabel;
+
+    juce::AudioProcessorValueTreeState& valueTreeState;
+    
+    juce::Slider driveKnob;
+    juce::Label driveLabel;
+	std::unique_ptr<SliderAttachment> driveAttachment;
+
+	juce::Slider levelKnob;
+	juce::Label levelLabel;
+	std::unique_ptr<SliderAttachment> levelAttachment;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (BevyDistortionAudioProcessorEditor)
 };

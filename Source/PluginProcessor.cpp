@@ -19,7 +19,12 @@ BevyDistortionAudioProcessor::BevyDistortionAudioProcessor()
                       #endif
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
-                       )
+                       ),
+    parameters(*this, nullptr, juce::Identifier("Parameters"),
+        {
+			std::make_unique<juce::AudioParameterFloat>("drive", "Drive", 0.0f, 1.0f, 0.5f),
+			std::make_unique<juce::AudioParameterFloat>("level", "Level", 0.0f, 1.0f, 0.5f)
+        })
 #endif
 {
 	addParameter(drive = new juce::AudioParameterFloat("drive", "Drive", juce::NormalisableRange<float>(0.0f, 1.0f), 0.5f));
@@ -168,7 +173,7 @@ bool BevyDistortionAudioProcessor::hasEditor() const
 
 juce::AudioProcessorEditor* BevyDistortionAudioProcessor::createEditor()
 {
-    return new BevyDistortionAudioProcessorEditor (*this);
+    return new BevyDistortionAudioProcessorEditor (*this, parameters);
 }
 
 //==============================================================================
