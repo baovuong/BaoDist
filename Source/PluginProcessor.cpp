@@ -9,6 +9,9 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
+#define DRIVE_SCALE 0.5f
+#define BOTTOM_THRESHOLD 0.001f
+
 //==============================================================================
 BevyDistortionAudioProcessor::BevyDistortionAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -140,10 +143,13 @@ bool BevyDistortionAudioProcessor::isBusesLayoutSupported (const BusesLayout& la
 
 void BevyDistortionAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
-    DBG("Processing block... { drive=" << *driveParameter << ", level=" << *levelParameter << " }");
+    // DBG("Processing block... { drive=" << *driveParameter << ", level=" << *levelParameter << " }");
     juce::ScopedNoDenormals noDenormals;
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
+
+
+
 
     // In case we have more outputs than inputs, this code clears any output
     // channels that didn't contain input data, (because these aren't
@@ -160,11 +166,40 @@ void BevyDistortionAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
     // the samples and the outer loop is handling the channels.
     // Alternatively, you can process the samples with the channels
     // interleaved by keeping the same state.
+
+    // define threshold based on drive parameter 
+    auto drive = *driveParameter * DRIVE_SCALE;
+    auto threshold = 1 - drive;
+    DBG("threshold=" << threshold);
+    
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
-        auto* channelData = buffer.getWritePointer (channel);
+        auto* outputData = buffer.getWritePointer (channel);
+        const float* inputData = buffer.getReadPointer(channel);
 
-        // ..do something to the data...
+        // hard-clipping distortion piecewise function
+
+        // noise gate cuz we really need it lol
+
+
+		for (int sample = 0; sample < buffer.getNumSamples(); ++sample)
+		{
+            DBG("sample: " << inputData[sample]);
+            if (inputData[sample] >= BOTTOM_THRESHOLD) {
+                if (inputData[sample] > threshold)
+                    outputData[sample] = threshold + drive;
+                else if (inputData[sample] < -1 * threshold)
+                    outputData[sample] = -1 * (threshold + drive);
+                else if (inputData[sample] != 0)
+                    outputData[sample] = inputData[sample] + (inputData[sample] < 0 ? -1 : 1) * drive;
+                else
+                    outputData[sample] = 0;
+            }
+		}
+
+
+        // apply level
+        buffer.applyGain(*levelParameter);
     }
 }
 
