@@ -25,13 +25,13 @@ BevyDistortionAudioProcessor::BevyDistortionAudioProcessor()
                        ),
     parameters(*this, nullptr, juce::Identifier("BevyParams"),
         {
-			std::make_unique<juce::AudioParameterFloat>("drive", "Drive", 0.0f, 1.0f, 0.5f),
-			std::make_unique<juce::AudioParameterFloat>("level", "Level", 0.0f, 1.0f, 0.5f)
+            std::make_unique<juce::AudioParameterFloat>("drive", "Drive", 0.0f, 1.0f, 0.5f),
+            std::make_unique<juce::AudioParameterFloat>("level", "Level", 0.0f, 1.0f, 0.5f)
         })
 #endif
 {
-	driveParameter = parameters.getRawParameterValue("drive");
-	levelParameter = parameters.getRawParameterValue("level");
+    driveParameter = parameters.getRawParameterValue("drive");
+    levelParameter = parameters.getRawParameterValue("level");
 }
 
 BevyDistortionAudioProcessor::~BevyDistortionAudioProcessor()
@@ -182,8 +182,8 @@ void BevyDistortionAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
         // noise gate cuz we really need it lol
 
 
-		for (int sample = 0; sample < buffer.getNumSamples(); ++sample)
-		{
+        for (int sample = 0; sample < buffer.getNumSamples(); ++sample)
+        {
             DBG("sample: " << inputData[sample]);
             if (inputData[sample] >= BOTTOM_THRESHOLD) {
                 if (inputData[sample] > threshold)
@@ -195,7 +195,7 @@ void BevyDistortionAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
                 else
                     outputData[sample] = 0;
             }
-		}
+        }
 
 
         // apply level
@@ -221,9 +221,9 @@ void BevyDistortionAudioProcessor::getStateInformation (juce::MemoryBlock& destD
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
 
-	auto state = parameters.copyState();
+    auto state = parameters.copyState();
     std::unique_ptr<juce::XmlElement> xml(state.createXml());
-	copyXmlToBinary(*xml, destData);
+    copyXmlToBinary(*xml, destData);
 }
 
 void BevyDistortionAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
@@ -232,13 +232,13 @@ void BevyDistortionAudioProcessor::setStateInformation (const void* data, int si
     // whose contents will have been created by the getStateInformation() call.
 
     std::unique_ptr<juce::XmlElement> xmlState(getXmlFromBinary(data, sizeInBytes));
-	if (xmlState.get() != nullptr)
-	{
+    if (xmlState.get() != nullptr)
+    {
         if (xmlState->hasTagName(parameters.state.getType()))
         {
-			parameters.replaceState(juce::ValueTree::fromXml(*xmlState));
-		}
-	}
+            parameters.replaceState(juce::ValueTree::fromXml(*xmlState));
+        }
+    }
 }
 
 //==============================================================================
