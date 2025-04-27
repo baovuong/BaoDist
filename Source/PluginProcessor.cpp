@@ -20,15 +20,15 @@ BevyDistortionAudioProcessor::BevyDistortionAudioProcessor()
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
                        ),
-    parameters(*this, nullptr, juce::Identifier("Parameters"),
+    parameters(*this, nullptr, juce::Identifier("BevyParams"),
         {
 			std::make_unique<juce::AudioParameterFloat>("drive", "Drive", 0.0f, 1.0f, 0.5f),
 			std::make_unique<juce::AudioParameterFloat>("level", "Level", 0.0f, 1.0f, 0.5f)
         })
 #endif
 {
-	addParameter(drive = new juce::AudioParameterFloat("drive", "Drive", juce::NormalisableRange<float>(0.0f, 1.0f), 0.5f));
-	addParameter(level = new juce::AudioParameterFloat("level", "Level", juce::NormalisableRange<float>(0.0f, 1.0f), 0.5f));
+	driveParameter = parameters.getRawParameterValue("drive");
+	levelParameter = parameters.getRawParameterValue("level");
 }
 
 BevyDistortionAudioProcessor::~BevyDistortionAudioProcessor()
@@ -102,6 +102,8 @@ void BevyDistortionAudioProcessor::prepareToPlay (double sampleRate, int samples
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
+    DBG("Preparing to play... { drive=" << *driveParameter << ", level=" << *levelParameter << " }");
+
 }
 
 void BevyDistortionAudioProcessor::releaseResources()
@@ -138,6 +140,7 @@ bool BevyDistortionAudioProcessor::isBusesLayoutSupported (const BusesLayout& la
 
 void BevyDistortionAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
+    DBG("Processing block... { drive=" << *driveParameter << ", level=" << *levelParameter << " }");
     juce::ScopedNoDenormals noDenormals;
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
@@ -183,9 +186,8 @@ void BevyDistortionAudioProcessor::getStateInformation (juce::MemoryBlock& destD
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
 
-	std::unique_ptr<juce::XmlElement> xml(new juce::XmlElement("BevyParams"));
-    xml->setAttribute("drive", (double)*drive);
-	xml->setAttribute("level", (double)*level);
+	auto state = parameters.copyState();
+    std::unique_ptr<juce::XmlElement> xml(state.createXml());
 	copyXmlToBinary(*xml, destData);
 }
 
@@ -194,13 +196,12 @@ void BevyDistortionAudioProcessor::setStateInformation (const void* data, int si
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
 
-	std::unique_ptr<juce::XmlElement> xmlState(getXmlFromBinary(data, sizeInBytes));
+    std::unique_ptr<juce::XmlElement> xmlState(getXmlFromBinary(data, sizeInBytes));
 	if (xmlState.get() != nullptr)
 	{
-		if (xmlState->hasTagName("BevyParams"))
-		{
-			*drive = (float) xmlState->getDoubleAttribute("drive", 0.0f);
-			*level = (float) xmlState->getDoubleAttribute("level", 0.5f);
+        if (xmlState->hasTagName(parameters.state.getType()))
+        {
+			parameters.replaceState(juce::ValueTree::fromXml(*xmlState));
 		}
 	}
 }

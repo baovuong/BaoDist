@@ -55,6 +55,8 @@ public:
 
 private:
 	juce::AudioProcessorValueTreeState parameters;
+    std::atomic<float>* driveParameter;
+	std::atomic<float>* levelParameter;
     juce::AudioParameterFloat* drive;
     juce::AudioParameterFloat* level;
     //==============================================================================
