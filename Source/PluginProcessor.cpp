@@ -184,8 +184,7 @@ void BevyDistortionAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
 
         for (int sample = 0; sample < buffer.getNumSamples(); ++sample)
         {
-            DBG("sample: " << inputData[sample]);
-            if (inputData[sample] >= BOTTOM_THRESHOLD) {
+            if (abs(inputData[sample]) >= BOTTOM_THRESHOLD) {
                 if (inputData[sample] > threshold)
                     outputData[sample] = threshold + drive;
                 else if (inputData[sample] < -1 * threshold)
