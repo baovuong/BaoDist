@@ -44,5 +44,7 @@ private:
 	juce::Label levelLabel;
 	std::unique_ptr<SliderAttachment> levelAttachment;
 
+    juce::Label footer;
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (BevyDistortionAudioProcessorEditor)
 };

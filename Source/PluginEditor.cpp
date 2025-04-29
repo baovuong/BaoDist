@@ -9,17 +9,23 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
+#define KNOB_LABEL_HEIGHT 14.0f 
+#define TITLE_LABEL_HEIGHT 7.0f
+
 //==============================================================================
 BevyDistortionAudioProcessorEditor::BevyDistortionAudioProcessorEditor(BevyDistortionAudioProcessor& p, juce::AudioProcessorValueTreeState& vts)
 	: AudioProcessorEditor(&p), audioProcessor(p), valueTreeState(vts)
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (400, 300);
+    setSize (800, 600);
 
 	// Set up the title label
 	titleLabel.setText("Bevy Distortion", juce::dontSendNotification);
-	titleLabel.setFont(juce::Font(24.0f, juce::Font::bold));
+	titleLabel.setFont(juce::FontOptions(
+		getHeight() / TITLE_LABEL_HEIGHT, 
+		juce::Font::FontStyleFlags::bold));
+
 	titleLabel.setJustificationType(juce::Justification::centred);
 	addAndMakeVisible(titleLabel); // Add the label to the editor
 
@@ -32,6 +38,9 @@ BevyDistortionAudioProcessorEditor::BevyDistortionAudioProcessorEditor(BevyDisto
 	driveLabel.setText("Drive", juce::dontSendNotification);
 	driveLabel.attachToComponent(&driveKnob, false);
 	driveLabel.setJustificationType(juce::Justification::centred);
+	driveLabel.setFont(juce::FontOptions(
+		getHeight() / KNOB_LABEL_HEIGHT, 
+		juce::Font::FontStyleFlags::bold));
 	addAndMakeVisible(driveLabel); // Add the label to the editor
 
 	levelKnob.setSliderStyle(juce::Slider::RotaryVerticalDrag);
@@ -43,10 +52,25 @@ BevyDistortionAudioProcessorEditor::BevyDistortionAudioProcessorEditor(BevyDisto
 	levelLabel.setText("Level", juce::dontSendNotification);
 	levelLabel.attachToComponent(&levelKnob, false);
 	levelLabel.setJustificationType(juce::Justification::centred);
+	levelLabel.setFont(juce::FontOptions(
+		getHeight() / KNOB_LABEL_HEIGHT, 
+		juce::Font::FontStyleFlags::bold));
 	addAndMakeVisible(levelLabel); // Add the label to the editor
 
 	driveAttachment.reset(new SliderAttachment(valueTreeState, "drive", driveKnob)); // Attach the knob to the parameter
 	levelAttachment.reset(new SliderAttachment(valueTreeState, "level", levelKnob)); // Attach the knob to the parameter
+
+	// footer
+
+	juce::String footerText = ProjectInfo::projectName;
+	footerText += " ";
+	footerText += ProjectInfo::versionString;
+	footerText += " - ";
+	footerText += ProjectInfo::companyName;
+	footer.setText(footerText, juce::dontSendNotification);
+	footer.setJustificationType(juce::Justification::right);
+	footer.setFont(juce::FontOptions(getHeight() / 40));
+	addAndMakeVisible(footer);
 }
 
 BevyDistortionAudioProcessorEditor::~BevyDistortionAudioProcessorEditor()
@@ -69,7 +93,8 @@ void BevyDistortionAudioProcessorEditor::resized()
     // subcomponents in your editor..
 	auto area = getLocalBounds();
 
-	titleLabel.setBounds(area.removeFromTop(40).reduced(10));
+	titleLabel.setBounds(area.removeFromTop(getHeight() / 5).reduced(10));
+	footer.setBounds(area.removeFromBottom(getHeight() / 30));
 
 	auto knobArea = area.removeFromBottom(area.getHeight()-titleLabel.getBounds().getHeight() - 10).reduced(10);
 	driveKnob.setBounds(knobArea.removeFromLeft(knobArea.getWidth() / 2));
