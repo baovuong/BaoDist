@@ -176,26 +176,9 @@ void BevyDistortionAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
         auto* outputData = buffer.getWritePointer (channel);
         const float* inputData = buffer.getReadPointer(channel);
 
-        // hard-clipping distortion piecewise function
-
-        // noise gate cuz we really need it lol
-
-
-        for (int sample = 0; sample < buffer.getNumSamples(); ++sample)
-        {
-            if (abs(inputData[sample] < BOTTOM_THRESHOLD))
-                continue;
-
-            if (inputData[sample] > threshold)
-                outputData[sample] = threshold + drive;
-            else if (inputData[sample] < -1 * threshold)
-                outputData[sample] = -1 * (threshold + drive);
-            else if (inputData[sample] != 0)
-                outputData[sample] = inputData[sample] + (inputData[sample] < 0 ? -1 : 1) * drive;
-            else
-                outputData[sample] = 0;
-        
-        }
+        hardClipDistortion.setDrive(drive);
+        hardClipDistortion.setThreshold(threshold);
+        hardClipDistortion.process(buffer.getNumSamples(), outputData);
 
         // apply level
         buffer.applyGain(*levelParameter);

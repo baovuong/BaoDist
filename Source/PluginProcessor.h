@@ -9,6 +9,7 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "Distortions/HardClipDistortion.h"
 
 //==============================================================================
 /**
@@ -59,6 +60,10 @@ private:
 	std::atomic<float>* levelParameter;
     juce::AudioParameterFloat* drive;
     juce::AudioParameterFloat* level;
+
+    // Distortion 
+    HardClipDistortion hardClipDistortion;
+
     //==============================================================================
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BevyDistortionAudioProcessor)
