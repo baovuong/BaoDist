@@ -69,7 +69,7 @@ BevyDistortionAudioProcessorEditor::BevyDistortionAudioProcessorEditor(BevyDisto
 	footerText += ProjectInfo::companyName;
 	footer.setText(footerText, juce::dontSendNotification);
 	footer.setJustificationType(juce::Justification::right);
-	footer.setFont(juce::FontOptions(getHeight() / 40));
+	footer.setFont(juce::FontOptions(getHeight() / 30));
 	addAndMakeVisible(footer);
 }
 
@@ -94,9 +94,9 @@ void BevyDistortionAudioProcessorEditor::resized()
 	auto area = getLocalBounds();
 
 	titleLabel.setBounds(area.removeFromTop(getHeight() / 5).reduced(10));
-	footer.setBounds(area.removeFromBottom(getHeight() / 30));
+	footer.setBounds(area.removeFromBottom(getHeight() / 25));
 
-	auto knobArea = area.removeFromBottom(area.getHeight()-titleLabel.getBounds().getHeight() - 10).reduced(10);
+	auto knobArea = area.removeFromBottom(area.getHeight() - titleLabel.getBounds().getHeight() - 10).reduced(10);
 	driveKnob.setBounds(knobArea.removeFromLeft(knobArea.getWidth() / 2));
 	levelKnob.setBounds(knobArea);
 }
