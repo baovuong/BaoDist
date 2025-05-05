@@ -9,7 +9,7 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
-#define DRIVE_SCALE 0.5f
+#define DRIVE_SCALE 2.0f
 #define BOTTOM_THRESHOLD 0.0001f
 
 //==============================================================================

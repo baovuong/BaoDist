@@ -11,7 +11,7 @@
 #include <JuceHeader.h>
 #include "HardClipDistortion.h"
 
-#define DRIVE_SCALE 0.5f
+#define DRIVE_SCALE 2.0f
 #define BOTTOM_THRESHOLD 0.0005f
 
 void HardClipDistortion::process(int numSamples, float* samples)
@@ -22,15 +22,14 @@ void HardClipDistortion::process(int numSamples, float* samples)
         if (abs(samples[sample] < BOTTOM_THRESHOLD))
             continue;
 
+        // add the drive
+        samples[sample] *= drive * DRIVE_SCALE;
+
         // hard-clipping distortion piecewise function
         if (samples[sample] > threshold)
-            samples[sample] = threshold + drive;
+            samples[sample] = threshold;
         else if (samples[sample] < -1 * threshold)
-            samples[sample] = -1 * (threshold + drive);
-        else if (samples[sample] != 0)
-            samples[sample] = samples[sample] + (samples[sample] < 0 ? -1 : 1) * drive;
-        else
-            samples[sample] = 0;
+            samples[sample] = -1 * threshold;
     }
 }
 
