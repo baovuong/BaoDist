@@ -46,5 +46,7 @@ private:
 
     juce::Label footer;
 
+    // TODO create dropdown to choose different clipping methods
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (BevyDistortionAudioProcessorEditor)
 };

@@ -10,7 +10,7 @@
 
 #include <JuceHeader.h>
 #include "Distortion.h"
-#include "Clippings/HardClipping.h"
+#include "Clippings/SoftClipping.h"
 
 //==============================================================================
 /**
@@ -62,7 +62,7 @@ private:
 
     // Distortion 
     Distortion distortion;
-    HardClipping clipping;
+    SoftClipping clipping;
 
     //==============================================================================
 
