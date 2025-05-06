@@ -9,8 +9,8 @@
 #pragma once
 
 #include <JuceHeader.h>
-#include "Distortions/Distortion.h"
-#include "Distortions/Clippings/HardClipping.h"
+#include "Distortion.h"
+#include "Clippings/HardClipping.h"
 
 //==============================================================================
 /**
@@ -59,8 +59,6 @@ private:
 	juce::AudioProcessorValueTreeState parameters;
     std::atomic<float>* driveParameter;
 	std::atomic<float>* levelParameter;
-    juce::AudioParameterFloat* drive;
-    juce::AudioParameterFloat* level;
 
     // Distortion 
     Distortion distortion;

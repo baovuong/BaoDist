@@ -9,9 +9,6 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
-#define DRIVE_SCALE 2.0f
-#define BOTTOM_THRESHOLD 0.0001f
-
 //==============================================================================
 BevyDistortionAudioProcessor::BevyDistortionAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -165,17 +162,13 @@ void BevyDistortionAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
     // the samples and the outer loop is handling the channels.
     // Alternatively, you can process the samples with the channels
     // interleaved by keeping the same state.
-
-    // define threshold based on drive parameter 
-    auto drive = *driveParameter * DRIVE_SCALE;
-    auto threshold = 1 - drive;
     
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
         auto* outputData = buffer.getWritePointer (channel);
         const float* inputData = buffer.getReadPointer(channel);
 
-        distortion.process(buffer.getNumSamples(), outputData, drive, &clipping);
+        distortion.process(buffer.getNumSamples(), outputData, *driveParameter, &clipping);
 
         // apply level
         buffer.applyGain(*levelParameter);
