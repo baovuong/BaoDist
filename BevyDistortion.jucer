@@ -6,11 +6,14 @@
   <MAINGROUP id="OJ2Q7Z" name="BevyDistortion">
     <GROUP id="{5C7F1C2E-C458-8201-6676-6107C1DA7867}" name="Source">
       <GROUP id="{1F413A4C-56E1-15E2-DABD-F146ADAA8ACC}" name="Distortions">
+        <GROUP id="{E109A34C-39A6-FF09-0F97-352D1EF9952E}" name="Clippings">
+          <FILE id="NY70QT" name="Clipping.h" compile="0" resource="0" file="Source/Distortions/Clippings/Clipping.h"/>
+          <FILE id="oqeBHM" name="HardClipping.cpp" compile="1" resource="0"
+                file="Source/Distortions/Clippings/HardClipping.cpp"/>
+          <FILE id="acq94F" name="HardClipping.h" compile="0" resource="0" file="Source/Distortions/Clippings/HardClipping.h"/>
+        </GROUP>
+        <FILE id="JKhYdd" name="Distortion.cpp" compile="1" resource="0" file="Source/Distortions/Distortion.cpp"/>
         <FILE id="CyiDzQ" name="Distortion.h" compile="0" resource="0" file="Source/Distortions/Distortion.h"/>
-        <FILE id="vCGC1Z" name="HardClipDistortion.cpp" compile="1" resource="0"
-              file="Source/Distortions/HardClipDistortion.cpp"/>
-        <FILE id="LcMtLf" name="HardClipDistortion.h" compile="0" resource="0"
-              file="Source/Distortions/HardClipDistortion.h"/>
       </GROUP>
       <FILE id="t8uAGU" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>

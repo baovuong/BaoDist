@@ -10,8 +10,13 @@
 
 #pragma once
 
+#include "Clippings/Clipping.h"
+
+#define DRIVE_SCALE 2.0f
+#define BOTTOM_THRESHOLD 0.0005f
+
 class Distortion
 {
 public:
-    virtual void process(int numSamples, float* samples) = 0;
+    void process(int numSamples, float* samples, float drive, Clipping *clipping);
 };

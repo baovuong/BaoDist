@@ -9,7 +9,8 @@
 #pragma once
 
 #include <JuceHeader.h>
-#include "Distortions/HardClipDistortion.h"
+#include "Distortions/Distortion.h"
+#include "Distortions/Clippings/HardClipping.h"
 
 //==============================================================================
 /**
@@ -62,7 +63,8 @@ private:
     juce::AudioParameterFloat* level;
 
     // Distortion 
-    HardClipDistortion hardClipDistortion;
+    Distortion distortion;
+    HardClipping clipping;
 
     //==============================================================================
 

@@ -106,7 +106,6 @@ void BevyDistortionAudioProcessor::prepareToPlay (double sampleRate, int samples
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
     DBG("Preparing to play... { drive=" << *driveParameter << ", level=" << *levelParameter << " }");
-
 }
 
 void BevyDistortionAudioProcessor::releaseResources()
@@ -176,9 +175,7 @@ void BevyDistortionAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
         auto* outputData = buffer.getWritePointer (channel);
         const float* inputData = buffer.getReadPointer(channel);
 
-        hardClipDistortion.setDrive(drive);
-        hardClipDistortion.setThreshold(threshold);
-        hardClipDistortion.process(buffer.getNumSamples(), outputData);
+        distortion.process(buffer.getNumSamples(), outputData, drive, &clipping);
 
         // apply level
         buffer.applyGain(*levelParameter);
