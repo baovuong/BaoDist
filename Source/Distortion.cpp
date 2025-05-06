@@ -1,20 +1,21 @@
 /*
   ==============================================================================
 
-    HardClipDistortion.cpp
-    Created: 1 May 2025 1:50:04am
-    Author:  vqbao
+    Distortion.cpp
+    Created: 5 May 2025 3:54:14pm
+    Author:  bvuong
 
   ==============================================================================
 */
 
 #include <JuceHeader.h>
-#include "HardClipDistortion.h"
 
-#define DRIVE_SCALE 2.0f
+#include "Distortion.h"
+
+#define DRIVE_SCALE 100
 #define BOTTOM_THRESHOLD 0.0005f
 
-void HardClipDistortion::process(int numSamples, float* samples)
+void Distortion::process(int numSamples, float* samples, float drive, Clipping *clipping)
 {
     for (int sample = 0; sample < numSamples; ++sample)
     {
@@ -26,19 +27,6 @@ void HardClipDistortion::process(int numSamples, float* samples)
         samples[sample] *= drive * DRIVE_SCALE;
 
         // hard-clipping distortion piecewise function
-        if (samples[sample] > threshold)
-            samples[sample] = threshold;
-        else if (samples[sample] < -1 * threshold)
-            samples[sample] = -1 * threshold;
+        clipping->clip(samples, sample);
     }
-}
-
-void HardClipDistortion::setDrive(float drive)
-{
-    this->drive = drive;
-}
-
-void HardClipDistortion::setThreshold(float threshold)
-{
-    this->threshold = threshold;
 }

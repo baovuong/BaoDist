@@ -1,17 +1,19 @@
 /*
   ==============================================================================
 
-    Distortion.h
-    Created: 1 May 2025 1:49:46am
-    Author:  vqbao
+    HardClipping.h
+    Created: 5 May 2025 4:01:24pm
+    Author:  bvuong
 
   ==============================================================================
 */
 
 #pragma once
 
-class Distortion
+#include "Clipping.h"
+
+class HardClipping : public Clipping
 {
 public:
-    virtual void process(int numSamples, float* samples) = 0;
+    void clip(float* samples, int sampleIndex) override;
 };
