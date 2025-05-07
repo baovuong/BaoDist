@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="nznMt4" name="BevyDistortion" projectType="audioplug" useAppConfig="0"
-              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" version="0.0.1"
+              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" version="0.0.2"
               companyName="Stuff By Bao">
   <MAINGROUP id="OJ2Q7Z" name="BevyDistortion">
     <GROUP id="{5C7F1C2E-C458-8201-6676-6107C1DA7867}" name="Source">
