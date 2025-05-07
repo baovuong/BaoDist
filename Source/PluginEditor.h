@@ -26,6 +26,8 @@ public:
     void paint (juce::Graphics&) override;
     void resized() override;
 
+    void distortionMenuChanged();
+
 private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
@@ -45,6 +47,9 @@ private:
 	std::unique_ptr<SliderAttachment> levelAttachment;
 
     juce::Label footer;
+
+    // TODO create dropdown to choose different clipping methods
+    juce::ComboBox distortionMenu;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (BevyDistortionAudioProcessorEditor)
 };

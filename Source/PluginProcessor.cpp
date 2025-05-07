@@ -29,6 +29,8 @@ BevyDistortionAudioProcessor::BevyDistortionAudioProcessor()
 {
     driveParameter = parameters.getRawParameterValue("drive");
     levelParameter = parameters.getRawParameterValue("level");
+
+    chooseDistortion(1);
 }
 
 BevyDistortionAudioProcessor::~BevyDistortionAudioProcessor()
@@ -168,7 +170,7 @@ void BevyDistortionAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
         auto* outputData = buffer.getWritePointer (channel);
         const float* inputData = buffer.getReadPointer(channel);
 
-        distortion.process(buffer.getNumSamples(), outputData, *driveParameter, &clipping);
+        distortion.process(buffer.getNumSamples(), outputData, *driveParameter, chosenClipping);
 
         // apply level
         buffer.applyGain(*levelParameter);
@@ -210,6 +212,20 @@ void BevyDistortionAudioProcessor::setStateInformation (const void* data, int si
         {
             parameters.replaceState(juce::ValueTree::fromXml(*xmlState));
         }
+    }
+}
+
+void BevyDistortionAudioProcessor::chooseDistortion(int choice)
+{
+    switch (choice) {
+    case 1:
+        // Hard Clip
+        chosenClipping = &hardClipping;
+        break;
+    case 2:
+        // Soft clip
+        chosenClipping = &softClipping;
+        break;
     }
 }
 
