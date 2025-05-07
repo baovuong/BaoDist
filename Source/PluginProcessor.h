@@ -10,6 +10,7 @@
 
 #include <JuceHeader.h>
 #include "Distortion.h"
+#include "Clippings/HardClipping.h"
 #include "Clippings/SoftClipping.h"
 
 //==============================================================================
@@ -55,6 +56,9 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
+    //==============================================================================
+    void chooseDistortion(int choice);
+
 private:
 	juce::AudioProcessorValueTreeState parameters;
     std::atomic<float>* driveParameter;
@@ -62,7 +66,10 @@ private:
 
     // Distortion 
     Distortion distortion;
-    SoftClipping clipping;
+
+    Clipping* chosenClipping;
+    HardClipping hardClipping;
+    SoftClipping softClipping;
 
     //==============================================================================
 

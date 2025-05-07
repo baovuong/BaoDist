@@ -11,6 +11,7 @@
 
 #define KNOB_LABEL_HEIGHT 14.0f 
 #define TITLE_LABEL_HEIGHT 7.0f
+#define DISTORTION_MENU_FONT_SIZE 12
 
 //==============================================================================
 BevyDistortionAudioProcessorEditor::BevyDistortionAudioProcessorEditor(BevyDistortionAudioProcessor& p, juce::AudioProcessorValueTreeState& vts)
@@ -60,6 +61,13 @@ BevyDistortionAudioProcessorEditor::BevyDistortionAudioProcessorEditor(BevyDisto
 	driveAttachment.reset(new SliderAttachment(valueTreeState, "drive", driveKnob)); // Attach the knob to the parameter
 	levelAttachment.reset(new SliderAttachment(valueTreeState, "level", levelKnob)); // Attach the knob to the parameter
 
+	distortionMenu.addItem("Hard Clip", 1);
+	distortionMenu.addItem("Soft Clip", 2);
+	distortionMenu.onChange = [this] { distortionMenuChanged(); };
+	distortionMenu.setSelectedId(1);
+	addAndMakeVisible(distortionMenu);
+
+
 	// footer
 
 	juce::String footerText = ProjectInfo::projectName;
@@ -96,7 +104,13 @@ void BevyDistortionAudioProcessorEditor::resized()
 	titleLabel.setBounds(area.removeFromTop(getHeight() / 5).reduced(10));
 	footer.setBounds(area.removeFromBottom(getHeight() / 25));
 
+	distortionMenu.setBounds(area.removeFromTop(getHeight() / 10).reduced(getWidth() / 20, 0));
 	auto knobArea = area.removeFromBottom(area.getHeight() - titleLabel.getBounds().getHeight() - 10).reduced(10);
 	driveKnob.setBounds(knobArea.removeFromLeft(knobArea.getWidth() / 2));
 	levelKnob.setBounds(knobArea);
+}
+
+void BevyDistortionAudioProcessorEditor::distortionMenuChanged()
+{
+	audioProcessor.chooseDistortion(distortionMenu.getSelectedId());
 }

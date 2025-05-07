@@ -17,5 +17,5 @@ using namespace juce;
 
 void SoftClipping::clip(float* samples, int sampleIndex)
 {
-    samples[sampleIndex] = 2 / MathConstants<float>::pi * atan(10 * samples[sampleIndex]);
+    samples[sampleIndex] = 2 / MathConstants<float>::pi * atan(samples[sampleIndex]);
 }
