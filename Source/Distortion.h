@@ -12,9 +12,6 @@
 
 #include "Clippings/Clipping.h"
 
-#define DRIVE_SCALE 2.0f
-#define BOTTOM_THRESHOLD 0.0005f
-
 class Distortion
 {
 public:

@@ -17,12 +17,11 @@
 
 void Distortion::process(int numSamples, float* samples, float drive, Clipping *clipping)
 {
+    if (drive == 0)
+        return;
+
     for (int sample = 0; sample < numSamples; ++sample)
     {
-        // noise gate cuz we really need it lol
-        //if (abs(samples[sample] < BOTTOM_THRESHOLD))
-        //    continue;
-
         // add the drive
         samples[sample] *= drive * DRIVE_SCALE;
 
