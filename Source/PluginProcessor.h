@@ -11,7 +11,8 @@
 #include <JuceHeader.h>
 #include "Distortion.h"
 #include "Clippings/HardClipping.h"
-#include "Clippings/SoftClipping.h"
+#include "Clippings/ArcTanSoftClipping.h"
+#include "Clippings/HomographicSoftClipping.h"
 
 //==============================================================================
 /**
@@ -63,13 +64,16 @@ private:
 	juce::AudioProcessorValueTreeState parameters;
     std::atomic<float>* driveParameter;
 	std::atomic<float>* levelParameter;
+    std::atomic<float>* factorParameter;
+    std::atomic<float>* typeParameter;
 
     // Distortion 
     Distortion distortion;
 
     Clipping* chosenClipping;
     HardClipping hardClipping;
-    SoftClipping softClipping;
+    ArcTanSoftClipping arcTanSoftClipping;
+    HomographicSoftClipping homographicSoftClipping;
 
     //==============================================================================
 

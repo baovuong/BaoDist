@@ -46,6 +46,10 @@ private:
 	juce::Label levelLabel;
 	std::unique_ptr<SliderAttachment> levelAttachment;
 
+    juce::Slider factorKnob;
+    juce::Label factorLabel;
+    std::unique_ptr<SliderAttachment> factorAttachment;
+
     juce::Label footer;
 
     // TODO create dropdown to choose different clipping methods

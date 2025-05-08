@@ -11,7 +11,7 @@
 #pragma once
 #include "Clipping.h"
 
-class SoftClipping : public Clipping
+class ArcTanSoftClipping : public Clipping
 {
 public:
     void clip(float* samples, int sampleIndex) override;

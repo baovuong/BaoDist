@@ -23,12 +23,17 @@ BevyDistortionAudioProcessor::BevyDistortionAudioProcessor()
     parameters(*this, nullptr, juce::Identifier("BevyParams"),
         {
             std::make_unique<juce::AudioParameterFloat>("drive", "Drive", 0.0f, 1.0f, 0.5f),
-            std::make_unique<juce::AudioParameterFloat>("level", "Level", 0.0f, 1.0f, 0.5f)
+            std::make_unique<juce::AudioParameterFloat>("level", "Level", 0.0f, 1.0f, 0.5f),
+            std::make_unique<juce::AudioParameterFloat>("factor", "Factor", 0.0f, 1.0f, 0.5f),
+            std::make_unique<juce::AudioParameterChoice>("type", "Type",
+                juce::StringArray{"Hard Clip", "Soft Clip (Arc Tangent)", "Soft Clip (Homographic)"}, 0)
         })
 #endif
 {
     driveParameter = parameters.getRawParameterValue("drive");
     levelParameter = parameters.getRawParameterValue("level");
+    factorParameter = parameters.getRawParameterValue("factor");
+    typeParameter = parameters.getRawParameterValue("type");
 
     chooseDistortion(1);
 }
@@ -170,7 +175,16 @@ void BevyDistortionAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
         auto* outputData = buffer.getWritePointer (channel);
         const float* inputData = buffer.getReadPointer(channel);
 
-        distortion.process(buffer.getNumSamples(), outputData, *driveParameter, chosenClipping);
+        //if (*factorParameter > 0) {
+        //    homographicSoftClipping.setFactor(*factorParameter);
+        //    distortion.process(buffer.getNumSamples(), outputData, *driveParameter, &homographicSoftClipping);
+        //}
+        //else {
+        //    distortion.process(buffer.getNumSamples(), outputData, *driveParameter, &hardClipping);
+        //}
+        homographicSoftClipping.setFactor(*factorParameter);
+        distortion.process(buffer.getNumSamples(), outputData, *driveParameter, &homographicSoftClipping);
+
 
         // apply level
         buffer.applyGain(*levelParameter);
@@ -223,8 +237,11 @@ void BevyDistortionAudioProcessor::chooseDistortion(int choice)
         chosenClipping = &hardClipping;
         break;
     case 2:
-        // Soft clip
-        chosenClipping = &softClipping;
+        // Arctan Soft clip
+        chosenClipping = &arcTanSoftClipping;
+        break;
+    case 3:
+        chosenClipping = &homographicSoftClipping;
         break;
     }
 }

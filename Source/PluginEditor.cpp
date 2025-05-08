@@ -58,13 +58,46 @@ BevyDistortionAudioProcessorEditor::BevyDistortionAudioProcessorEditor(BevyDisto
 		juce::Font::FontStyleFlags::bold));
 	addAndMakeVisible(levelLabel); // Add the label to the editor
 
+	factorKnob.setSliderStyle(juce::Slider::RotaryVerticalDrag);
+	factorKnob.setTextBoxStyle(juce::Slider::NoTextBox, false, 50, 20);
+	factorKnob.setRange(0.0, 1.0, 0.01);
+	factorKnob.setValue(0.5);
+	addAndMakeVisible(factorKnob);
+
+	factorLabel.setText("Factor", juce::dontSendNotification);
+	factorLabel.attachToComponent(&factorKnob, false);
+	factorLabel.setJustificationType(juce::Justification::centred);
+	factorLabel.setFont(juce::FontOptions(
+		getHeight() / KNOB_LABEL_HEIGHT,
+		juce::Font::FontStyleFlags::bold));
+	addAndMakeVisible(factorLabel);
+
 	driveAttachment.reset(new SliderAttachment(valueTreeState, "drive", driveKnob)); // Attach the knob to the parameter
 	levelAttachment.reset(new SliderAttachment(valueTreeState, "level", levelKnob)); // Attach the knob to the parameter
+	factorAttachment.reset(new SliderAttachment(valueTreeState, "factor", factorKnob));
 
-	distortionMenu.addItem("Hard Clip", 1);
-	distortionMenu.addItem("Soft Clip", 2);
-	distortionMenu.onChange = [this] { distortionMenuChanged(); };
-	distortionMenu.setSelectedId(1);
+
+	// populate the distortionMenu 
+	
+	// TODO genereated by copilot, so double check
+	auto* choiceParameter = dynamic_cast<juce::AudioParameterChoice*>(valueTreeState.getParameter("type"));
+	if (choiceParameter != nullptr)
+	{
+		// Add all choices from the parameter
+		for (int i = 0; i < choiceParameter->getAllValueStrings().size(); ++i)
+		{
+			distortionMenu.addItem(choiceParameter->getAllValueStrings()[i], i + 1);
+		}
+
+		// Set initial value
+		distortionMenu.setSelectedId(choiceParameter->getIndex() + 1);
+
+		distortionMenu.onChange = [this] {
+			auto* param = dynamic_cast<juce::AudioParameterChoice*>(valueTreeState.getParameter("type"));
+			if (param != nullptr)
+				param->setValueNotifyingHost((float)(distortionMenu.getSelectedId() - 1) / (float)(param->getAllValueStrings().size() - 1));
+		};
+	}
 	addAndMakeVisible(distortionMenu);
 
 
@@ -106,8 +139,12 @@ void BevyDistortionAudioProcessorEditor::resized()
 
 	distortionMenu.setBounds(area.removeFromTop(getHeight() / 10).reduced(getWidth() / 20, 0));
 	auto knobArea = area.removeFromBottom(area.getHeight() - titleLabel.getBounds().getHeight() - 10).reduced(10);
-	driveKnob.setBounds(knobArea.removeFromLeft(knobArea.getWidth() / 2));
-	levelKnob.setBounds(knobArea);
+
+	// Update the knob layout to accommodate three knobs
+	auto knobWidth = knobArea.getWidth() / 3;  // Divide space into thirds
+	driveKnob.setBounds(knobArea.removeFromLeft(knobWidth));
+	factorKnob.setBounds(knobArea.removeFromLeft(knobWidth));  // Add factor knob in the middle
+	levelKnob.setBounds(knobArea);  // Level knob takes the remaining space
 }
 
 void BevyDistortionAudioProcessorEditor::distortionMenuChanged()
