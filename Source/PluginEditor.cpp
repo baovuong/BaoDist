@@ -19,7 +19,7 @@ BevyDistortionAudioProcessorEditor::BevyDistortionAudioProcessorEditor(BevyDisto
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (800, 600);
+    setSize (800, 400);
 
 	// Set up the title label
 	titleLabel.setText("Bevy Distortion", juce::dontSendNotification);
@@ -72,9 +72,7 @@ BevyDistortionAudioProcessorEditor::BevyDistortionAudioProcessorEditor(BevyDisto
 		juce::Font::FontStyleFlags::bold));
 	addAndMakeVisible(factorLabel);
 
-	driveAttachment.reset(new SliderAttachment(valueTreeState, "drive", driveKnob)); // Attach the knob to the parameter
-	levelAttachment.reset(new SliderAttachment(valueTreeState, "level", levelKnob)); // Attach the knob to the parameter
-	factorAttachment.reset(new SliderAttachment(valueTreeState, "factor", factorKnob));
+
 
 
 	// populate the distortionMenu 
@@ -86,20 +84,20 @@ BevyDistortionAudioProcessorEditor::BevyDistortionAudioProcessorEditor(BevyDisto
 		// Add all choices from the parameter
 		for (int i = 0; i < choiceParameter->getAllValueStrings().size(); ++i)
 		{
-			distortionMenu.addItem(choiceParameter->getAllValueStrings()[i], i + 1);
+			typeMenu.addItem(choiceParameter->getAllValueStrings()[i], i + 1);
 		}
 
 		// Set initial value
-		distortionMenu.setSelectedId(choiceParameter->getIndex() + 1);
+		typeMenu.setSelectedId(choiceParameter->getIndex() + 1);
 
-		distortionMenu.onChange = [this] {
-			auto* param = dynamic_cast<juce::AudioParameterChoice*>(valueTreeState.getParameter("type"));
-			if (param != nullptr)
-				param->setValueNotifyingHost((float)(distortionMenu.getSelectedId() - 1) / (float)(param->getAllValueStrings().size() - 1));
-		};
+		typeMenu.onChange = [this] { distortionMenuChanged(); };
 	}
-	addAndMakeVisible(distortionMenu);
+	addAndMakeVisible(typeMenu);
 
+	driveAttachment.reset(new SliderAttachment(valueTreeState, "drive", driveKnob)); // Attach the knob to the parameter
+	levelAttachment.reset(new SliderAttachment(valueTreeState, "level", levelKnob)); // Attach the knob to the parameter
+	factorAttachment.reset(new SliderAttachment(valueTreeState, "factor", factorKnob));
+	typeAttachment.reset(new ComboBoxAttachment(valueTreeState, "type", typeMenu));
 
 	// footer
 
@@ -137,7 +135,7 @@ void BevyDistortionAudioProcessorEditor::resized()
 	titleLabel.setBounds(area.removeFromTop(getHeight() / 5).reduced(10));
 	footer.setBounds(area.removeFromBottom(getHeight() / 25));
 
-	distortionMenu.setBounds(area.removeFromTop(getHeight() / 10).reduced(getWidth() / 20, 0));
+	typeMenu.setBounds(area.removeFromTop(getHeight() / 10).reduced(getWidth() / 20, 0));
 	auto knobArea = area.removeFromBottom(area.getHeight() - titleLabel.getBounds().getHeight() - 10).reduced(10);
 
 	// Update the knob layout to accommodate three knobs
@@ -149,5 +147,17 @@ void BevyDistortionAudioProcessorEditor::resized()
 
 void BevyDistortionAudioProcessorEditor::distortionMenuChanged()
 {
-	audioProcessor.chooseDistortion(distortionMenu.getSelectedId());
+	// UI change
+	if (typeMenu.getSelectedId() == 1) {
+		// hard clip, so disable factor knob
+		factorKnob.setEnabled(false);
+	}
+	else {
+		factorKnob.setEnabled(true);
+	}
+
+	// state change
+	auto* param = dynamic_cast<juce::AudioParameterChoice*>(valueTreeState.getParameter("type"));
+	if (param != nullptr)
+		param->setValueNotifyingHost((float)(typeMenu.getSelectedId() - 1) / (float)(param->getAllValueStrings().size() - 1));
 }

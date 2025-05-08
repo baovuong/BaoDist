@@ -15,12 +15,7 @@
 #define FACTOR_SCALE 1.5f
 #define BOTTOM_FACTOR 0.05f
 
-void HomographicSoftClipping::clip(float* samples, int sampleIndex)
+void HomographicSoftClipping::clip(float* samples, int sampleIndex, float factor)
 {
-    samples[sampleIndex] /= abs(samples[sampleIndex]) + factor * (FACTOR_SCALE-BOTTOM_FACTOR) + BOTTOM_FACTOR;
-}
-
-void HomographicSoftClipping::setFactor(float factor)
-{
-    this->factor = factor;
+    samples[sampleIndex] /= abs(samples[sampleIndex]) + (1 - factor) * (FACTOR_SCALE-BOTTOM_FACTOR) + BOTTOM_FACTOR;
 }

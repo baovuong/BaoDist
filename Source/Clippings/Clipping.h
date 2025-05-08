@@ -15,5 +15,5 @@
 class Clipping
 {
 public:
-    virtual void clip(float* samples, int sampleIndex) = 0;
+    virtual void clip(float* samples, int sampleIndex, float factor) = 0;
 };

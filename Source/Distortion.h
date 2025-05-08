@@ -15,5 +15,5 @@
 class Distortion
 {
 public:
-    void process(int numSamples, float* samples, float drive, Clipping *clipping);
+    void process(int numSamples, float* samples, float drive, float factor, Clipping *clipping);
 };

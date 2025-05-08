@@ -34,8 +34,6 @@ BevyDistortionAudioProcessor::BevyDistortionAudioProcessor()
     levelParameter = parameters.getRawParameterValue("level");
     factorParameter = parameters.getRawParameterValue("factor");
     typeParameter = parameters.getRawParameterValue("type");
-
-    chooseDistortion(1);
 }
 
 BevyDistortionAudioProcessor::~BevyDistortionAudioProcessor()
@@ -175,16 +173,7 @@ void BevyDistortionAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
         auto* outputData = buffer.getWritePointer (channel);
         const float* inputData = buffer.getReadPointer(channel);
 
-        //if (*factorParameter > 0) {
-        //    homographicSoftClipping.setFactor(*factorParameter);
-        //    distortion.process(buffer.getNumSamples(), outputData, *driveParameter, &homographicSoftClipping);
-        //}
-        //else {
-        //    distortion.process(buffer.getNumSamples(), outputData, *driveParameter, &hardClipping);
-        //}
-        homographicSoftClipping.setFactor(*factorParameter);
-        distortion.process(buffer.getNumSamples(), outputData, *driveParameter, &homographicSoftClipping);
-
+        distortion.process(buffer.getNumSamples(), outputData, *driveParameter, *factorParameter, &chosenDistortion());
 
         // apply level
         buffer.applyGain(*levelParameter);
@@ -229,21 +218,25 @@ void BevyDistortionAudioProcessor::setStateInformation (const void* data, int si
     }
 }
 
-void BevyDistortionAudioProcessor::chooseDistortion(int choice)
+Clipping& BevyDistortionAudioProcessor::chosenDistortion()
 {
+    // Get the parameter and cast it to AudioParameterChoice
+    auto* typeChoiceParameter = dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter("type"));
+    int choice = typeChoiceParameter == nullptr ? 1 : typeChoiceParameter->getIndex() + 1; // Get the current choice index
+
     switch (choice) {
     case 1:
-        // Hard Clip
-        chosenClipping = &hardClipping;
+        return hardClipping;
         break;
     case 2:
-        // Arctan Soft clip
-        chosenClipping = &arcTanSoftClipping;
+        return arcTanSoftClipping;
         break;
     case 3:
-        chosenClipping = &homographicSoftClipping;
+        return homographicSoftClipping;
         break;
     }
+
+    return hardClipping;
 }
 
 //==============================================================================

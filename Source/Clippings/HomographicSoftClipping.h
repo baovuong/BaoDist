@@ -14,8 +14,5 @@
 class HomographicSoftClipping : public Clipping
 {
 public:
-    void clip(float* samples, int sampleIndex) override;
-    void setFactor(float factor);
-private:
-    float factor;
+    void clip(float* samples, int sampleIndex, float factor) override;
 };

@@ -15,7 +15,7 @@
 #define DRIVE_SCALE 50
 #define BOTTOM_THRESHOLD 0.005f // TODO remove since we're not using it possibly
 
-void Distortion::process(int numSamples, float* samples, float drive, Clipping *clipping)
+void Distortion::process(int numSamples, float* samples, float drive, float factor, Clipping *clipping)
 {
     if (drive == 0)
         return;
@@ -26,6 +26,6 @@ void Distortion::process(int numSamples, float* samples, float drive, Clipping *
         samples[sample] *= drive * DRIVE_SCALE;
 
         // hard-clipping distortion piecewise function
-        clipping->clip(samples, sample);
+        clipping->clip(samples, sample, factor);
     }
 }

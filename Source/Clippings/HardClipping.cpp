@@ -11,7 +11,7 @@
 #include "HardClipping.h"
 
 
-void HardClipping::clip(float* samples, int sampleIndex)
+void HardClipping::clip(float* samples, int sampleIndex, float factor)
 {
     // hard-clipping distortion piecewise function
     if (samples[sampleIndex] > THRESHOLD)

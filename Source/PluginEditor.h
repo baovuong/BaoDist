@@ -15,6 +15,7 @@
 /**
 */
 typedef juce::AudioProcessorValueTreeState::SliderAttachment SliderAttachment;
+typedef juce::AudioProcessorValueTreeState::ComboBoxAttachment ComboBoxAttachment;
 
 class BevyDistortionAudioProcessorEditor  : public juce::AudioProcessorEditor
 {
@@ -53,7 +54,8 @@ private:
     juce::Label footer;
 
     // TODO create dropdown to choose different clipping methods
-    juce::ComboBox distortionMenu;
+    juce::ComboBox typeMenu;
+    std::unique_ptr<ComboBoxAttachment> typeAttachment;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (BevyDistortionAudioProcessorEditor)
 };

@@ -58,7 +58,7 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
     //==============================================================================
-    void chooseDistortion(int choice);
+    Clipping& chosenDistortion();
 
 private:
 	juce::AudioProcessorValueTreeState parameters;
@@ -70,7 +70,6 @@ private:
     // Distortion 
     Distortion distortion;
 
-    Clipping* chosenClipping;
     HardClipping hardClipping;
     ArcTanSoftClipping arcTanSoftClipping;
     HomographicSoftClipping homographicSoftClipping;

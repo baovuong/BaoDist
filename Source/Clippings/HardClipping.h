@@ -15,5 +15,5 @@
 class HardClipping : public Clipping
 {
 public:
-    void clip(float* samples, int sampleIndex) override;
+    void clip(float* samples, int sampleIndex, float factor) override;
 };
