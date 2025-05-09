@@ -9,6 +9,7 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "BevyLookAndFeel.h"
 #include "PluginProcessor.h"
 
 //==============================================================================
@@ -34,6 +35,7 @@ private:
     // access the processor object that created it.
     BevyDistortionAudioProcessor& audioProcessor;
 
+    BevyLookAndFeel lookAndFeel;
 	
 	juce::Label titleLabel;
 

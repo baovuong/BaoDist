@@ -20,6 +20,7 @@ BevyDistortionAudioProcessorEditor::BevyDistortionAudioProcessorEditor(BevyDisto
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
     setSize (800, 400);
+	setLookAndFeel(&lookAndFeel);
 
 	// Set up the title label
 	titleLabel.setText("Bevy Distortion", juce::dontSendNotification);
@@ -72,9 +73,6 @@ BevyDistortionAudioProcessorEditor::BevyDistortionAudioProcessorEditor(BevyDisto
 		juce::Font::FontStyleFlags::bold));
 	addAndMakeVisible(factorLabel);
 
-
-
-
 	// populate the distortionMenu 
 	
 	// TODO genereated by copilot, so double check
@@ -114,6 +112,11 @@ BevyDistortionAudioProcessorEditor::BevyDistortionAudioProcessorEditor(BevyDisto
 
 BevyDistortionAudioProcessorEditor::~BevyDistortionAudioProcessorEditor()
 {
+	setLookAndFeel(nullptr);
+	driveAttachment.reset();
+	levelAttachment.reset();
+	factorAttachment.reset();
+	typeAttachment.reset();
 }
 
 //==============================================================================
