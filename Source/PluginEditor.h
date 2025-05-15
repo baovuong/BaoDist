@@ -55,9 +55,15 @@ private:
 
     juce::Label footer;
 
-    // TODO create dropdown to choose different clipping methods
     juce::ComboBox typeMenu;
     std::unique_ptr<ComboBoxAttachment> typeAttachment;
+
+    // fonts
+    CustomFonts customFonts;
+
+    // constants
+    const float knobLabelHeight = 14.0f;
+    const float titleLabelHeight = 7.0f;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (BevyDistortionAudioProcessorEditor)
 };

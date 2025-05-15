@@ -4,7 +4,28 @@
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" version="0.1.0"
               companyName="Stuff By Bao">
   <MAINGROUP id="OJ2Q7Z" name="BevyDistortion">
+    <GROUP id="{0419216F-E868-670F-C579-DFFFD669EB61}" name="Assets">
+      <GROUP id="{AE75E39C-F279-91C3-74A5-D8FAFEF4E2A1}" name="Fonts">
+        <FILE id="giDSZZ" name="Gontserrat-Bold.ttf" compile="0" resource="1"
+              file="Assets/Fonts/Gontserrat-Bold.ttf"/>
+        <FILE id="z3pDov" name="Gontserrat-Italic.ttf" compile="0" resource="1"
+              file="Assets/Fonts/Gontserrat-Italic.ttf"/>
+        <FILE id="cWiQB3" name="Gontserrat-Light.ttf" compile="0" resource="1"
+              file="Assets/Fonts/Gontserrat-Light.ttf"/>
+        <FILE id="aK0SRV" name="Gontserrat-LightItalic.ttf" compile="0" resource="1"
+              file="Assets/Fonts/Gontserrat-LightItalic.ttf"/>
+        <FILE id="Wgf8BF" name="Gontserrat-Medium.ttf" compile="0" resource="1"
+              file="Assets/Fonts/Gontserrat-Medium.ttf"/>
+        <FILE id="ho4LlQ" name="Gontserrat-MediumItalic.ttf" compile="0" resource="1"
+              file="Assets/Fonts/Gontserrat-MediumItalic.ttf"/>
+        <FILE id="er16Mg" name="Gontserrat-Regular.ttf" compile="0" resource="1"
+              file="Assets/Fonts/Gontserrat-Regular.ttf"/>
+        <FILE id="K1Bn4p" name="IMPACTED.ttf" compile="0" resource="1" file="Assets/Fonts/IMPACTED.ttf"/>
+      </GROUP>
+    </GROUP>
     <GROUP id="{5C7F1C2E-C458-8201-6676-6107C1DA7867}" name="Source">
+      <FILE id="oNQJB4" name="CustomFonts.cpp" compile="1" resource="0" file="Source/CustomFonts.cpp"/>
+      <FILE id="iazjK9" name="CustomFonts.h" compile="0" resource="0" file="Source/CustomFonts.h"/>
       <FILE id="nU9Swg" name="BevyLookAndFeel.cpp" compile="1" resource="0"
             file="Source/BevyLookAndFeel.cpp"/>
       <FILE id="m35hm6" name="BevyLookAndFeel.h" compile="0" resource="0"

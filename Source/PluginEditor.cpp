@@ -9,9 +9,6 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
-#define KNOB_LABEL_HEIGHT 14.0f 
-#define TITLE_LABEL_HEIGHT 7.0f
-#define DISTORTION_MENU_FONT_SIZE 12
 
 //==============================================================================
 BevyDistortionAudioProcessorEditor::BevyDistortionAudioProcessorEditor(BevyDistortionAudioProcessor& p, juce::AudioProcessorValueTreeState& vts)
@@ -23,10 +20,10 @@ BevyDistortionAudioProcessorEditor::BevyDistortionAudioProcessorEditor(BevyDisto
 	setLookAndFeel(&lookAndFeel);
 
 	// Set up the title label
-	titleLabel.setText("Bevy Distortion", juce::dontSendNotification);
-	titleLabel.setFont(juce::FontOptions(
-		getHeight() / TITLE_LABEL_HEIGHT, 
-		juce::Font::FontStyleFlags::bold));
+	titleLabel.setText("BEVY DISTORTION", juce::dontSendNotification);
+	//titleLabel.setFont(juce::FontOptions(
+	//	getHeight() / titleLableHeight));
+	titleLabel.setFont(juce::FontOptions(customFonts.getImpactedFont().getTypefaceName(), getHeight() / titleLabelHeight, juce::Font::plain));
 
 	titleLabel.setJustificationType(juce::Justification::centred);
 	addAndMakeVisible(titleLabel); // Add the label to the editor
@@ -37,11 +34,11 @@ BevyDistortionAudioProcessorEditor::BevyDistortionAudioProcessorEditor(BevyDisto
     driveKnob.setValue(0.5); // Default value
     addAndMakeVisible(driveKnob); // Add the knob to the editor
 
-	driveLabel.setText("Drive", juce::dontSendNotification);
+	driveLabel.setText("DRIVE", juce::dontSendNotification);
 	driveLabel.attachToComponent(&driveKnob, false);
 	driveLabel.setJustificationType(juce::Justification::centred);
 	driveLabel.setFont(juce::FontOptions(
-		getHeight() / KNOB_LABEL_HEIGHT, 
+		getHeight() / knobLabelHeight, 
 		juce::Font::FontStyleFlags::bold));
 	addAndMakeVisible(driveLabel); // Add the label to the editor
 
@@ -51,11 +48,11 @@ BevyDistortionAudioProcessorEditor::BevyDistortionAudioProcessorEditor(BevyDisto
     levelKnob.setValue(0.5); // Default value
     addAndMakeVisible(levelKnob); // Add the knob to the editor
 
-	levelLabel.setText("Level", juce::dontSendNotification);
+	levelLabel.setText("LEVEL", juce::dontSendNotification);
 	levelLabel.attachToComponent(&levelKnob, false);
 	levelLabel.setJustificationType(juce::Justification::centred);
 	levelLabel.setFont(juce::FontOptions(
-		getHeight() / KNOB_LABEL_HEIGHT, 
+		getHeight() / knobLabelHeight, 
 		juce::Font::FontStyleFlags::bold));
 	addAndMakeVisible(levelLabel); // Add the label to the editor
 
@@ -65,11 +62,11 @@ BevyDistortionAudioProcessorEditor::BevyDistortionAudioProcessorEditor(BevyDisto
 	factorKnob.setValue(0.5);
 	addAndMakeVisible(factorKnob);
 
-	factorLabel.setText("Factor", juce::dontSendNotification);
+	factorLabel.setText("FACTOR", juce::dontSendNotification);
 	factorLabel.attachToComponent(&factorKnob, false);
 	factorLabel.setJustificationType(juce::Justification::centred);
 	factorLabel.setFont(juce::FontOptions(
-		getHeight() / KNOB_LABEL_HEIGHT,
+		getHeight() / knobLabelHeight,
 		juce::Font::FontStyleFlags::bold));
 	addAndMakeVisible(factorLabel);
 
@@ -139,13 +136,13 @@ void BevyDistortionAudioProcessorEditor::resized()
 	footer.setBounds(area.removeFromBottom(getHeight() / 25));
 
 	typeMenu.setBounds(area.removeFromTop(getHeight() / 10).reduced(getWidth() / 20, 0));
-	auto knobArea = area.removeFromBottom(area.getHeight() - titleLabel.getBounds().getHeight() - 10).reduced(10);
 
 	// Update the knob layout to accommodate three knobs
+	auto knobArea = area.reduced(10, 20);
 	auto knobWidth = knobArea.getWidth() / 3;  // Divide space into thirds
-	driveKnob.setBounds(knobArea.removeFromLeft(knobWidth));
-	factorKnob.setBounds(knobArea.removeFromLeft(knobWidth));  // Add factor knob in the middle
-	levelKnob.setBounds(knobArea);  // Level knob takes the remaining space
+	driveKnob.setBounds(knobArea.removeFromLeft(knobWidth).reduced(30));
+	factorKnob.setBounds(knobArea.removeFromLeft(knobWidth).reduced(30));  // Add factor knob in the middle
+	levelKnob.setBounds(knobArea.reduced(30));  // Level knob takes the remaining space
 }
 
 void BevyDistortionAudioProcessorEditor::distortionMenuChanged()
