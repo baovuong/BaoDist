@@ -32,7 +32,7 @@ BevyLookAndFeel::BevyLookAndFeel()
     // misc colors
     disabled = findColour(juce::ResizableWindow::backgroundColourId).brighter(0.02f);
 
-    setDefaultSansSerifTypeface(customFonts.getGontserratFont().getTypefacePtr());
+    setDefaultSansSerifTypeface(customFonts.getGontserrat().getTypefacePtr());
 }
 
 void BevyLookAndFeel::drawRotarySlider(juce::Graphics& g, int x, int y, int width, int height, float sliderPosProportional, float rotaryStartAngle, float rotaryEndAngle, juce::Slider& slider)

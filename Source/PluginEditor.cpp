@@ -23,7 +23,7 @@ BevyDistortionAudioProcessorEditor::BevyDistortionAudioProcessorEditor(BevyDisto
 	titleLabel.setText("BEVY DISTORTION", juce::dontSendNotification);
 	//titleLabel.setFont(juce::FontOptions(
 	//	getHeight() / titleLableHeight));
-	titleLabel.setFont(juce::FontOptions(customFonts.getImpactedFont().getTypefaceName(), getHeight() / titleLabelHeight, juce::Font::plain));
+	titleLabel.setFont(juce::FontOptions(customFonts.getImpacted().getTypefaceName(), getHeight() / titleLabelHeight, juce::Font::plain));
 
 	titleLabel.setJustificationType(juce::Justification::centred);
 	addAndMakeVisible(titleLabel); // Add the label to the editor
