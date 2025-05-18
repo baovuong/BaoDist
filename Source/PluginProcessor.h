@@ -13,6 +13,7 @@
 #include "Clippings/HardClipping.h"
 #include "Clippings/ArcTanSoftClipping.h"
 #include "Clippings/HomographicSoftClipping.h"
+#include "Clippings/HyperbolicTangentSoftClipping.h"
 
 //==============================================================================
 /**
@@ -73,6 +74,8 @@ private:
     HardClipping hardClipping;
     ArcTanSoftClipping arcTanSoftClipping;
     HomographicSoftClipping homographicSoftClipping;
+    HyperbolicTangentSoftClipping hyperbolicTangentSoftClipping;
+
 
     //==============================================================================
 

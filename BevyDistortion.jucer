@@ -31,6 +31,10 @@
       <FILE id="m35hm6" name="BevyLookAndFeel.h" compile="0" resource="0"
             file="Source/BevyLookAndFeel.h"/>
       <GROUP id="{D3D87729-BFAA-FD9B-2C9B-70886BC90EB8}" name="Clippings">
+        <FILE id="uSNZvY" name="HyperbolicTangentSoftClipping.cpp" compile="1"
+              resource="0" file="Source/Clippings/HyperbolicTangentSoftClipping.cpp"/>
+        <FILE id="EDJ00J" name="HyperbolicTangentSoftClipping.h" compile="0"
+              resource="0" file="Source/Clippings/HyperbolicTangentSoftClipping.h"/>
         <FILE id="nvdflu" name="HomographicSoftClipping.cpp" compile="1" resource="0"
               file="Source/Clippings/HomographicSoftClipping.cpp"/>
         <FILE id="AVf9aP" name="HomographicSoftClipping.h" compile="0" resource="0"
