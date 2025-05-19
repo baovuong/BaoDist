@@ -19,3 +19,8 @@ void HardClipping::clip(float* samples, int sampleIndex, float factor)
     else if (samples[sampleIndex] < -1 * THRESHOLD)
         samples[sampleIndex] = -1 * THRESHOLD;
 }
+
+bool HardClipping::hasFactor()
+{
+    return false;
+}

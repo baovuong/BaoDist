@@ -15,4 +15,5 @@ class HomographicSoftClipping : public Clipping
 {
 public:
     void clip(float* samples, int sampleIndex, float factor) override;
+    bool hasFactor() override;
 };

@@ -148,13 +148,7 @@ void BevyDistortionAudioProcessorEditor::resized()
 void BevyDistortionAudioProcessorEditor::distortionMenuChanged()
 {
 	// UI change
-	if (typeMenu.getSelectedId() == 1) {
-		// hard clip, so disable factor knob
-		factorKnob.setEnabled(false);
-	}
-	else {
-		factorKnob.setEnabled(true);
-	}
+	factorKnob.setEnabled(audioProcessor.chosenDistortion().hasFactor());
 
 	// state change
 	auto* param = dynamic_cast<juce::AudioParameterChoice*>(valueTreeState.getParameter("type"));
