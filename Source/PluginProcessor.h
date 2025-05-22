@@ -14,6 +14,7 @@
 #include "Clippings/ArcTanSoftClipping.h"
 #include "Clippings/HomographicSoftClipping.h"
 #include "Clippings/HyperbolicTangentSoftClipping.h"
+#include "Clippings/SinusoidalSoftClipping.h"
 
 //==============================================================================
 /**
@@ -75,6 +76,8 @@ private:
     ArcTanSoftClipping arcTanSoftClipping;
     HomographicSoftClipping homographicSoftClipping;
     HyperbolicTangentSoftClipping hyperbolicTangentSoftClipping;
+    SinusoidalSoftClipping sinusoidalSoftClipping;
+
 
 
     //==============================================================================

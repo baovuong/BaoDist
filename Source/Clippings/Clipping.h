@@ -16,4 +16,5 @@ class Clipping
 {
 public:
     virtual void clip(float* samples, int sampleIndex, float factor) = 0;
+    virtual bool hasFactor() = 0;
 };

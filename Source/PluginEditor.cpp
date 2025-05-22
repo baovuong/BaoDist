@@ -137,7 +137,6 @@ void BevyDistortionAudioProcessorEditor::resized()
 
 	typeMenu.setBounds(area.removeFromTop(getHeight() / 10).reduced(getWidth() / 20, 0));
 
-	// Update the knob layout to accommodate three knobs
 	auto knobArea = area.reduced(10, 20);
 	auto knobWidth = knobArea.getWidth() / 3;  // Divide space into thirds
 	driveKnob.setBounds(knobArea.removeFromLeft(knobWidth).reduced(30));
@@ -148,13 +147,7 @@ void BevyDistortionAudioProcessorEditor::resized()
 void BevyDistortionAudioProcessorEditor::distortionMenuChanged()
 {
 	// UI change
-	if (typeMenu.getSelectedId() == 1) {
-		// hard clip, so disable factor knob
-		factorKnob.setEnabled(false);
-	}
-	else {
-		factorKnob.setEnabled(true);
-	}
+	factorKnob.setEnabled(audioProcessor.chosenDistortion().hasFactor());
 
 	// state change
 	auto* param = dynamic_cast<juce::AudioParameterChoice*>(valueTreeState.getParameter("type"));

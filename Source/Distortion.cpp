@@ -12,13 +12,14 @@
 
 #include "Distortion.h"
 
-#define DRIVE_SCALE 50
-#define BOTTOM_THRESHOLD 0.005f // TODO remove since we're not using it possibly
+#define DRIVE_SCALE 200
 
 void Distortion::process(int numSamples, float* samples, float drive, float factor, Clipping *clipping)
 {
     if (drive == 0)
+    {
         return;
+    }
 
     for (int sample = 0; sample < numSamples; ++sample)
     {

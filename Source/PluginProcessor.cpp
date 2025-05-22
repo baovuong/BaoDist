@@ -26,7 +26,14 @@ BevyDistortionAudioProcessor::BevyDistortionAudioProcessor()
             std::make_unique<juce::AudioParameterFloat>("level", "Level", 0.0f, 1.0f, 0.5f),
             std::make_unique<juce::AudioParameterFloat>("factor", "Factor", 0.0f, 1.0f, 0.5f),
             std::make_unique<juce::AudioParameterChoice>("type", "Type",
-                juce::StringArray{"Hard Clip", "Soft Clip (Arc Tangent)", "Soft Clip (Homographic)", "Soft Clip (Hyperbolic Tangent)"}, 0)
+                juce::StringArray 
+                {
+                    "Hard Clip", 
+                    "Soft Clip (Arc Tangent)", 
+                    "Soft Clip (Homographic)", 
+                    "Soft Clip (Hyperbolic Tangent)",
+                    "Soft Clip (Sinusoidal)"
+                }, 0)
         })
 #endif
 {
@@ -236,6 +243,9 @@ Clipping& BevyDistortionAudioProcessor::chosenDistortion()
         break;
     case 4:
         return hyperbolicTangentSoftClipping;
+        break;
+    case 5:
+        return sinusoidalSoftClipping;
         break;
     }
 

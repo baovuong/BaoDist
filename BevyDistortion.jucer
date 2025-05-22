@@ -24,6 +24,8 @@
       </GROUP>
     </GROUP>
     <GROUP id="{5C7F1C2E-C458-8201-6676-6107C1DA7867}" name="Source">
+      <FILE id="YikYBL" name="Helper.cpp" compile="1" resource="0" file="Source/Helper.cpp"/>
+      <FILE id="SyvWZR" name="Helper.h" compile="0" resource="0" file="Source/Helper.h"/>
       <FILE id="oNQJB4" name="CustomFonts.cpp" compile="1" resource="0" file="Source/CustomFonts.cpp"/>
       <FILE id="iazjK9" name="CustomFonts.h" compile="0" resource="0" file="Source/CustomFonts.h"/>
       <FILE id="nU9Swg" name="BevyLookAndFeel.cpp" compile="1" resource="0"
@@ -31,6 +33,10 @@
       <FILE id="m35hm6" name="BevyLookAndFeel.h" compile="0" resource="0"
             file="Source/BevyLookAndFeel.h"/>
       <GROUP id="{D3D87729-BFAA-FD9B-2C9B-70886BC90EB8}" name="Clippings">
+        <FILE id="kluf7W" name="SinusoidalSoftClipping.cpp" compile="1" resource="0"
+              file="Source/Clippings/SinusoidalSoftClipping.cpp"/>
+        <FILE id="S8wpCz" name="SinusoidalSoftClipping.h" compile="0" resource="0"
+              file="Source/Clippings/SinusoidalSoftClipping.h"/>
         <FILE id="uSNZvY" name="HyperbolicTangentSoftClipping.cpp" compile="1"
               resource="0" file="Source/Clippings/HyperbolicTangentSoftClipping.cpp"/>
         <FILE id="EDJ00J" name="HyperbolicTangentSoftClipping.h" compile="0"
