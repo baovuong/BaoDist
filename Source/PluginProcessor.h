@@ -15,6 +15,7 @@
 #include "Clippings/HomographicSoftClipping.h"
 #include "Clippings/HyperbolicTangentSoftClipping.h"
 #include "Clippings/SinusoidalSoftClipping.h"
+#include "Clippings/ExponentialSoftClipping.h"
 
 //==============================================================================
 /**
@@ -77,6 +78,7 @@ private:
     HomographicSoftClipping homographicSoftClipping;
     HyperbolicTangentSoftClipping hyperbolicTangentSoftClipping;
     SinusoidalSoftClipping sinusoidalSoftClipping;
+    ExponentialSoftClipping exponentialSoftClipping;
 
 
 

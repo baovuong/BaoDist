@@ -32,7 +32,8 @@ BevyDistortionAudioProcessor::BevyDistortionAudioProcessor()
                     "Soft Clip (Arc Tangent)", 
                     "Soft Clip (Homographic)", 
                     "Soft Clip (Hyperbolic Tangent)",
-                    "Soft Clip (Sinusoidal)"
+                    "Soft Clip (Sinusoidal)",
+                    "Soft Clip (Exponential)"
                 }, 0)
         })
 #endif
@@ -246,6 +247,9 @@ Clipping& BevyDistortionAudioProcessor::chosenDistortion()
         break;
     case 5:
         return sinusoidalSoftClipping;
+        break;
+    case 6:
+        return exponentialSoftClipping;
         break;
     }
 
