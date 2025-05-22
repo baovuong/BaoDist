@@ -33,7 +33,8 @@ BevyDistortionAudioProcessor::BevyDistortionAudioProcessor()
                     "Soft Clip (Homographic)", 
                     "Soft Clip (Hyperbolic Tangent)",
                     "Soft Clip (Sinusoidal)",
-                    "Soft Clip (Exponential)"
+                    "Soft Clip (Exponential)",
+                    "Soft Clip (Two Stage Quadratic)"
                 }, 0)
         })
 #endif
@@ -250,6 +251,9 @@ Clipping& BevyDistortionAudioProcessor::chosenDistortion()
         break;
     case 6:
         return exponentialSoftClipping;
+        break;
+    case 7:
+        return twoStageQuadraticSoftClipping;
         break;
     }
 
