@@ -33,6 +33,10 @@
       <FILE id="m35hm6" name="BevyLookAndFeel.h" compile="0" resource="0"
             file="Source/BevyLookAndFeel.h"/>
       <GROUP id="{D3D87729-BFAA-FD9B-2C9B-70886BC90EB8}" name="Clippings">
+        <FILE id="ZnuJc4" name="ExponentialSoftClipping.cpp" compile="1" resource="0"
+              file="Source/Clippings/ExponentialSoftClipping.cpp"/>
+        <FILE id="V27N6t" name="ExponentialSoftClipping.h" compile="0" resource="0"
+              file="Source/Clippings/ExponentialSoftClipping.h"/>
         <FILE id="kluf7W" name="SinusoidalSoftClipping.cpp" compile="1" resource="0"
               file="Source/Clippings/SinusoidalSoftClipping.cpp"/>
         <FILE id="S8wpCz" name="SinusoidalSoftClipping.h" compile="0" resource="0"
