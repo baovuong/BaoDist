@@ -24,6 +24,8 @@
       </GROUP>
     </GROUP>
     <GROUP id="{5C7F1C2E-C458-8201-6676-6107C1DA7867}" name="Source">
+      <FILE id="YikYBL" name="Helper.cpp" compile="1" resource="0" file="Source/Helper.cpp"/>
+      <FILE id="SyvWZR" name="Helper.h" compile="0" resource="0" file="Source/Helper.h"/>
       <FILE id="oNQJB4" name="CustomFonts.cpp" compile="1" resource="0" file="Source/CustomFonts.cpp"/>
       <FILE id="iazjK9" name="CustomFonts.h" compile="0" resource="0" file="Source/CustomFonts.h"/>
       <FILE id="nU9Swg" name="BevyLookAndFeel.cpp" compile="1" resource="0"
