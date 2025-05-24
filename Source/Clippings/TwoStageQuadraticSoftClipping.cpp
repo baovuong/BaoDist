@@ -14,9 +14,14 @@
 
 void TwoStageQuadraticSoftClipping::clip(float* samples, int sampleIndex, float factor)
 {
+    
     float oneThird = 1.0f / 3.0f;
     float b = 2.0f / 3.0f;
 
+    // TODO there is a lot of variables that the factor knob could control. let's figure out what to do
+    // * the piecewise function boundary values
+    // * in the second condition block, some subtraction values could work
+    // * in the second condition block, maybe the base value for pow(n - abs(m))
     if (abs(samples[sampleIndex]) > b)
     {
         samples[sampleIndex] = Helper::sgn(samples[sampleIndex]);
