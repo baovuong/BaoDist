@@ -18,6 +18,8 @@ void TwoStageQuadraticSoftClipping::clip(float* samples, int sampleIndex, float 
     float oneThird = 1.0f / 3.0f;
     float b = 2.0f / 3.0f;
 
+    float scaled = Helper::scale(factor, 1, 3);
+
     // TODO there is a lot of variables that the factor knob could control. let's figure out what to do
     // * the piecewise function boundary values
     // * in the second condition block, some subtraction values could work
@@ -28,9 +30,11 @@ void TwoStageQuadraticSoftClipping::clip(float* samples, int sampleIndex, float 
     }
     else if (abs(samples[sampleIndex]) >= oneThird && abs(samples[sampleIndex]) <= b)
     {
-        samples[sampleIndex] = Helper::sgn(samples[sampleIndex]) * ((3 - pow(2 - abs(3 * samples[sampleIndex]), 2)) / 3.0f);
+        //samples[sampleIndex] = Helper::sgn(samples[sampleIndex]) * ((3 - pow(2 - abs(3 * samples[sampleIndex]), 2)) / 3.0f);
+        //samples[sampleIndex] = Helper::sgn(samples[sampleIndex]) * (1 - pow(2 - abs((4.0f - scaled) * samples[sampleIndex]), 2) / 3.0f);
+        samples[sampleIndex] = Helper::sgn(samples[sampleIndex]) * (scaled - pow(2 - abs(3 * samples[sampleIndex]), 2) / 3.0f);
     }
-    else if (abs(samples[sampleIndex]) > -1 * oneThird && abs(samples[sampleIndex]) < oneThird)
+    else if (abs(samples[sampleIndex]) < oneThird)
     {
         samples[sampleIndex] *= 2;
     }
@@ -38,5 +42,5 @@ void TwoStageQuadraticSoftClipping::clip(float* samples, int sampleIndex, float 
 
 bool TwoStageQuadraticSoftClipping::hasFactor()
 {
-    return false;
+    return true;
 }
