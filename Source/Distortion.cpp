@@ -12,7 +12,7 @@
 
 #include "Distortion.h"
 
-#define DRIVE_SCALE 200
+#define DRIVE_SCALE 100
 
 void Distortion::process(int numSamples, float* samples, float drive, float factor, Clipping *clipping)
 {

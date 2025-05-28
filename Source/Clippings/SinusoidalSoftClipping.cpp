@@ -22,7 +22,7 @@ void SinusoidalSoftClipping::clip(float* samples, int sampleIndex, float factor)
     {
         samples[sampleIndex] = Helper::sgn(samples[sampleIndex]);
     }
-    else if (samples[sampleIndex] >= -1 * b && samples[sampleIndex] <= b)
+    else if (abs(samples[sampleIndex]) <= b)
     {
         samples[sampleIndex] = sin(a * juce::MathConstants<float>::pi * samples[sampleIndex]);
     }

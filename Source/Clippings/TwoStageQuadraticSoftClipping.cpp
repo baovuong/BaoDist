@@ -31,8 +31,8 @@ void TwoStageQuadraticSoftClipping::clip(float* samples, int sampleIndex, float 
     else if (abs(samples[sampleIndex]) >= oneThird && abs(samples[sampleIndex]) <= b)
     {
         //samples[sampleIndex] = Helper::sgn(samples[sampleIndex]) * ((3 - pow(2 - abs(3 * samples[sampleIndex]), 2)) / 3.0f);
-        //samples[sampleIndex] = Helper::sgn(samples[sampleIndex]) * (1 - pow(2 - abs((4.0f - scaled) * samples[sampleIndex]), 2) / 3.0f);
-        samples[sampleIndex] = Helper::sgn(samples[sampleIndex]) * (scaled - pow(2 - abs(3 * samples[sampleIndex]), 2) / 3.0f);
+        samples[sampleIndex] = Helper::sgn(samples[sampleIndex]) * (1 - pow(2 - abs((4.0f - scaled) * samples[sampleIndex]), 2) / 3.0f);
+        //samples[sampleIndex] = Helper::sgn(samples[sampleIndex]) * (scaled - pow(2 - abs(3 * samples[sampleIndex]), 2) / 3.0f);
     }
     else if (abs(samples[sampleIndex]) < oneThird)
     {
