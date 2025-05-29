@@ -14,15 +14,17 @@
 
 void SinusoidalSoftClipping::clip(float* samples, int sampleIndex, float factor)
 {
-    float a = Helper::scale(factor, 0.5f, 1.5f);
+    float a = Helper::scale(factor, 0.5f, 2.0f);
     float b = 1.0f / (2 * a);
 
+    float absValue = abs(samples[sampleIndex]);
+
     // sinusoidal soft clipping piecewise function
-    if (abs(samples[sampleIndex] > b))
+    if (absValue > b)
     {
         samples[sampleIndex] = Helper::sgn(samples[sampleIndex]);
     }
-    else if (abs(samples[sampleIndex]) <= b)
+    else if (absValue <= b)
     {
         samples[sampleIndex] = sin(a * juce::MathConstants<float>::pi * samples[sampleIndex]);
     }

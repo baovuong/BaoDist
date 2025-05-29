@@ -14,6 +14,7 @@ class Helper
 public:
     
     static float scale(float factor, float bottom, float top);
+    static bool isBetween(float input, float bottom, float top);
     
     // reference: https://stackoverflow.com/questions/1903954/is-there-a-standard-sign-function-signum-sgn-in-c-c
     template <typename T> static int sgn(T val) 
