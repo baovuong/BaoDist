@@ -18,7 +18,7 @@ void TwoStageQuadraticSoftClipping::clip(float* samples, int sampleIndex, float 
     float a = 1.0f / 3.0f;
     float b = 2.0f / 3.0f;
 
-    float scaled = Helper::scale(factor, 1, 3);
+    float scaled = Helper::scale(factor, 2, 5);
     int sign = Helper::sgn(samples[sampleIndex]);
     float absValue = abs(samples[sampleIndex]);
 
@@ -43,5 +43,5 @@ void TwoStageQuadraticSoftClipping::clip(float* samples, int sampleIndex, float 
 
 bool TwoStageQuadraticSoftClipping::hasFactor()
 {
-    return false;
+    return true;
 }
