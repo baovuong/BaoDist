@@ -17,6 +17,7 @@
 #include "Clippings/SinusoidalSoftClipping.h"
 #include "Clippings/ExponentialSoftClipping.h"
 #include "Clippings/TwoStageQuadraticSoftClipping.h"
+#include "Clippings/CubicSoftClipping.h"
 
 //==============================================================================
 /**
@@ -81,6 +82,7 @@ private:
     SinusoidalSoftClipping sinusoidalSoftClipping;
     ExponentialSoftClipping exponentialSoftClipping;
     TwoStageQuadraticSoftClipping twoStageQuadraticSoftClipping;
+    CubicSoftClipping cubicSoftClipping;
 
 
 
