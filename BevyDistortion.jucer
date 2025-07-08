@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="nznMt4" name="BevyDistortion" projectType="audioplug" useAppConfig="0"
-              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" version="0.3.0"
+              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" version="0.4.0"
               companyName="Stuff By Bao" pluginVST3Category="Distortion,Fx">
   <MAINGROUP id="OJ2Q7Z" name="BevyDistortion">
     <GROUP id="{0419216F-E868-670F-C579-DFFFD669EB61}" name="Assets">
