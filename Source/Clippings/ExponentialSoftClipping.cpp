@@ -24,7 +24,7 @@ void ExponentialSoftClipping::clip(float* samples, int sampleIndex, float factor
     {
         samples[sampleIndex] = sgnValue;
     }
-    else if (samples[sampleIndex] >= -1 * b || samples[sampleIndex] <= b)
+    else if (samples[sampleIndex] >= -1 * b && samples[sampleIndex] <= b)
     {
         samples[sampleIndex] = sgnValue * (1 - pow(abs(3 * samples[sampleIndex] / 2 - sgnValue), exponential));
     }

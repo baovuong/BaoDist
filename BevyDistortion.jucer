@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="nznMt4" name="BevyDistortion" projectType="audioplug" useAppConfig="0"
-              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" version="0.2.0"
+              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" version="0.3.0"
               companyName="Stuff By Bao">
   <MAINGROUP id="OJ2Q7Z" name="BevyDistortion">
     <GROUP id="{0419216F-E868-670F-C579-DFFFD669EB61}" name="Assets">
@@ -33,6 +33,14 @@
       <FILE id="m35hm6" name="BevyLookAndFeel.h" compile="0" resource="0"
             file="Source/BevyLookAndFeel.h"/>
       <GROUP id="{D3D87729-BFAA-FD9B-2C9B-70886BC90EB8}" name="Clippings">
+        <FILE id="oeb9UL" name="WhoopsieSineSoftClipping.cpp" compile="1" resource="0"
+              file="Source/Clippings/WhoopsieSineSoftClipping.cpp"/>
+        <FILE id="r9h61O" name="WhoopsieSineSoftClipping.h" compile="0" resource="0"
+              file="Source/Clippings/WhoopsieSineSoftClipping.h"/>
+        <FILE id="CS4AF5" name="TwoStageQuadraticSoftClipping.cpp" compile="1"
+              resource="0" file="Source/Clippings/TwoStageQuadraticSoftClipping.cpp"/>
+        <FILE id="IOjf4x" name="TwoStageQuadraticSoftClipping.h" compile="0"
+              resource="0" file="Source/Clippings/TwoStageQuadraticSoftClipping.h"/>
         <FILE id="ZnuJc4" name="ExponentialSoftClipping.cpp" compile="1" resource="0"
               file="Source/Clippings/ExponentialSoftClipping.cpp"/>
         <FILE id="V27N6t" name="ExponentialSoftClipping.h" compile="0" resource="0"
