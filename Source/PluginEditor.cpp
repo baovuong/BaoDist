@@ -20,7 +20,7 @@ BevyDistortionAudioProcessorEditor::BevyDistortionAudioProcessorEditor(BevyDisto
 	setLookAndFeel(&lookAndFeel);
 
 	// Set up the title label
-	titleLabel.setText("BEVY DISTORTION", juce::dontSendNotification);
+	titleLabel.setText("BAOFX DISTORTION", juce::dontSendNotification);
 	//titleLabel.setFont(juce::FontOptions(
 	//	getHeight() / titleLableHeight));
 	titleLabel.setFont(juce::FontOptions(customFonts.getImpacted().getTypefaceName(), getHeight() / titleLabelHeight, juce::Font::plain));

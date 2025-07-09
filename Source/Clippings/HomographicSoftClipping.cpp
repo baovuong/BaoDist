@@ -11,13 +11,14 @@
 #include <JuceHeader.h>
 
 #include "HomographicSoftClipping.h"
+#include "../Helper.h"
 
-#define FACTOR_SCALE 1.5f
-#define BOTTOM_FACTOR 0.05f
+constexpr float kTop = 1.5f;
+constexpr float kBottom = 0.05f;
 
 void HomographicSoftClipping::clip(float* samples, int sampleIndex, float factor)
 {
-    samples[sampleIndex] /= fabsf(samples[sampleIndex]) + (1 - factor) * (FACTOR_SCALE-BOTTOM_FACTOR) + BOTTOM_FACTOR;
+    samples[sampleIndex] /= fabsf(samples[sampleIndex]) + Helper::scale(1 - factor, kBottom, kTop);
 }
 
 bool HomographicSoftClipping::hasFactor()

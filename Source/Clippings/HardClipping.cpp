@@ -8,16 +8,19 @@
   ==============================================================================
 */
 
-#include "HardClipping.h"
+#include <JuceHeader.h>
 
+#include "HardClipping.h"
+#include "../Helper.h"
+
+constexpr float kThreshold = 1.f;
 
 void HardClipping::clip(float* samples, int sampleIndex, float factor)
 {
     // hard-clipping distortion piecewise function
-    if (samples[sampleIndex] > THRESHOLD)
-        samples[sampleIndex] = THRESHOLD;
-    else if (samples[sampleIndex] < -1 * THRESHOLD)
-        samples[sampleIndex] = -1 * THRESHOLD;
+    samples[sampleIndex] = fabsf(samples[sampleIndex]) > kThreshold 
+        ? Helper::sgn(samples[sampleIndex]) * kThreshold 
+        : samples[sampleIndex];
 }
 
 bool HardClipping::hasFactor()

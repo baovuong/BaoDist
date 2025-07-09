@@ -12,7 +12,7 @@
 
 #include "Distortion.h"
 
-#define DRIVE_SCALE 100
+constexpr float kDriveScale = 100.f;
 
 void Distortion::process(int numSamples, float* samples, float drive, float factor, Clipping *clipping)
 {
@@ -24,7 +24,7 @@ void Distortion::process(int numSamples, float* samples, float drive, float fact
     for (int sample = 0; sample < numSamples; ++sample)
     {
         // add the drive
-        samples[sample] *= drive * DRIVE_SCALE;
+        samples[sample] *= drive * kDriveScale;
 
         // hard-clipping distortion piecewise function
         clipping->clip(samples, sample, factor);

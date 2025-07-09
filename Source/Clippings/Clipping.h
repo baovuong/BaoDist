@@ -10,8 +10,6 @@
 
 #pragma once
 
-#define THRESHOLD 1.0f
-
 class Clipping
 {
 public:
