@@ -32,11 +32,11 @@ void TwoStageQuadraticSoftClipping::clip(float* samples, int sampleIndex, float 
     }
     else if (Helper::isBetween(absValue, scaled, Helper::kTwoThirds))
     {
-        samples[sampleIndex] = sign * ((3 - powf(2 - fabsf(3 * samples[sampleIndex]), exponent)) / 3.0f);
+        samples[sampleIndex] = sign * ((3 - powf(2 - fabsf(3.f * samples[sampleIndex]), exponent)) / 3.f);
     }
     else if (absValue < scaled)
     {
-        samples[sampleIndex] *= 2;
+        samples[sampleIndex] *= 2.f;
     }
 }
 

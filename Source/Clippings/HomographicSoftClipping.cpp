@@ -14,7 +14,7 @@
 #include "../Helper.h"
 
 constexpr float kTop = 1.5f;
-constexpr float kBottom = 0.05f;
+constexpr float kBottom = .05f;
 
 void HomographicSoftClipping::clip(float* samples, int sampleIndex, float factor)
 {
