@@ -14,12 +14,10 @@
 
 void TwoStageQuadraticSoftClipping::clip(float* samples, int sampleIndex, float factor)
 {
-
     const float scaled = Helper::scale(factor, 0, 0.5);
     const float sign = Helper::sgn(samples[sampleIndex]);
     const float absValue = fabsf(samples[sampleIndex]);
-    const float exponent = log10f(3 - 6 * scaled) / log10f(2 - fabsf(3 * scaled));
-
+    const float exponent = log10f(3 - 6.f * scaled) / log10f(2 - fabsf(3.f * scaled));
 
     // TODO there is a lot of variables that the factor knob could control. let's figure out what to do
     // [x] the piecewise function boundary values
