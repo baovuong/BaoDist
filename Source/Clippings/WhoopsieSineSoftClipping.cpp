@@ -19,7 +19,7 @@ void WhoopsieSineSoftClipping::clip(float* samples, int sampleIndex, float facto
     float b = 1.0f / (2 * a);
 
     // sinusoidal soft clipping piecewise function
-    if (abs(samples[sampleIndex] > b))
+    if (fabsf(samples[sampleIndex] > b))
     {
         samples[sampleIndex] = Helper::sgn(samples[sampleIndex]);
     }

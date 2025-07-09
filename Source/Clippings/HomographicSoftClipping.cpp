@@ -17,7 +17,7 @@
 
 void HomographicSoftClipping::clip(float* samples, int sampleIndex, float factor)
 {
-    samples[sampleIndex] /= abs(samples[sampleIndex]) + (1 - factor) * (FACTOR_SCALE-BOTTOM_FACTOR) + BOTTOM_FACTOR;
+    samples[sampleIndex] /= fabsf(samples[sampleIndex]) + (1 - factor) * (FACTOR_SCALE-BOTTOM_FACTOR) + BOTTOM_FACTOR;
 }
 
 bool HomographicSoftClipping::hasFactor()

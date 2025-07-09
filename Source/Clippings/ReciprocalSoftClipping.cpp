@@ -14,7 +14,7 @@
 
 void ReciprocalSoftClipping::clip(float* samples, int sampleIndex, float factor)
 {
-    samples[sampleIndex] = Helper::sgn(samples[sampleIndex]) * (1 - 1 / (abs(Helper::scale(factor, 1, 30) * samples[sampleIndex]) + 1));
+    samples[sampleIndex] = Helper::sgn(samples[sampleIndex]) * (1 - 1 / (fabsf(Helper::scale(factor, 1, 30) * samples[sampleIndex]) + 1));
 }
 
 bool ReciprocalSoftClipping::hasFactor()

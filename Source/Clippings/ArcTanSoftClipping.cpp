@@ -19,7 +19,7 @@ using namespace juce;
 
 void ArcTanSoftClipping::clip(float* samples, int sampleIndex, float factor)
 {
-    samples[sampleIndex] = 2 / MathConstants<float>::pi * atan((factor * (FACTOR_SCALE - BOTTOM_FACTOR) + BOTTOM_FACTOR) * samples[sampleIndex]);
+    samples[sampleIndex] = 2 / MathConstants<float>::pi * atanf((factor * (FACTOR_SCALE - BOTTOM_FACTOR) + BOTTOM_FACTOR) * samples[sampleIndex]);
 }
 
 bool ArcTanSoftClipping::hasFactor()

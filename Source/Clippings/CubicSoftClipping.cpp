@@ -14,10 +14,10 @@
 
 void CubicSoftClipping::clip(float* samples, int sampleIndex, float factor)
 {
-    float twoThirds = 2.0f / 3.0f;
+    constexpr float twoThirds = 2.f / 3.f;
     float sign = Helper::sgn(samples[sampleIndex]);
 
-    if (abs(samples[sampleIndex]) > twoThirds)
+    if (fabsf(samples[sampleIndex]) > twoThirds)
     {
         samples[sampleIndex] = sign;
     }

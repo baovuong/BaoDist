@@ -17,12 +17,12 @@ void TwoStageQuadraticSoftClipping::clip(float* samples, int sampleIndex, float 
 
     float scaled = Helper::scale(factor, 0, 0.5);
     int sign = Helper::sgn(samples[sampleIndex]);
-    float absValue = abs(samples[sampleIndex]);
+    float absValue = fabsf(samples[sampleIndex]);
 
     float twoThirds = 2.0f / 3.0f;
 
     float a = scaled;
-    float b = log10f(3 - 6 * a) / log10f(2 - abs(3 * a));
+    float b = log10f(3 - 6 * a) / log10f(2 - fabsf(3 * a));
 
 
     // TODO there is a lot of variables that the factor knob could control. let's figure out what to do
@@ -36,7 +36,7 @@ void TwoStageQuadraticSoftClipping::clip(float* samples, int sampleIndex, float 
     }
     else if (Helper::isBetween(absValue, a, twoThirds))
     {
-        samples[sampleIndex] = sign * ((3 - pow(2 - abs(3 * samples[sampleIndex]), b)) / 3.0f);
+        samples[sampleIndex] = sign * ((3 - powf(2 - fabsf(3 * samples[sampleIndex]), b)) / 3.0f);
     }
     else if (absValue < a)
     {
