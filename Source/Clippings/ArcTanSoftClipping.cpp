@@ -13,10 +13,10 @@
 #include "ArcTanSoftClipping.h"
 #include "../Helper.h"
 
+using namespace juce;
+
 constexpr float kTop = 5.f;
 constexpr float kBottom = .5f;
-
-using namespace juce;
 
 void ArcTanSoftClipping::clip(float* samples, int sampleIndex, float factor)
 {
