@@ -20,7 +20,7 @@ constexpr float kBottom = .5f;
 
 void ArcTanSoftClipping::clip(float* samples, int sampleIndex, float factor)
 {
-    samples[sampleIndex] = 2 / MathConstants<float>::pi * atanf(Helper::scale(factor, kBottom, kTop) * samples[sampleIndex]);
+    samples[sampleIndex] = 2.f / MathConstants<float>::pi * atanf(Helper::scale(factor, kBottom, kTop) * samples[sampleIndex]);
 }
 
 bool ArcTanSoftClipping::hasFactor()

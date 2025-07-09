@@ -16,18 +16,17 @@
 void ExponentialSoftClipping::clip(float* samples, int sampleIndex, float factor)
 {
     // exponential soft clipping piecewise function
-    constexpr float b = 2.f / 3.f;
 
     const float sgnValue = Helper::sgn(samples[sampleIndex]);
-    int exponential = floor(Helper::scale(factor, 2, 10));
+    int exponential = floor(Helper::scale(factor, 2.f, 10.f));
 
-    if (fabsf(samples[sampleIndex]) > b)
+    if (fabsf(samples[sampleIndex]) > Helper::kTwoThirds)
     {
         samples[sampleIndex] = sgnValue;
     }
-    else if (samples[sampleIndex] >= -1 * b && samples[sampleIndex] <= b)
+    else if (samples[sampleIndex] >= -1 * Helper::kTwoThirds && samples[sampleIndex] <= Helper::kTwoThirds)
     {
-        samples[sampleIndex] = sgnValue * (1 - powf(fabsf(3 * samples[sampleIndex] / 2 - sgnValue), exponential));
+        samples[sampleIndex] = sgnValue * (1 - powf(fabsf(3.f * samples[sampleIndex] / 2.f - sgnValue), exponential));
     }
 }
 
