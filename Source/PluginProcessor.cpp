@@ -155,13 +155,9 @@ bool BevyDistortionAudioProcessor::isBusesLayoutSupported (const BusesLayout& la
 
 void BevyDistortionAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
-    // DBG("Processing block... { drive=" << *driveParameter << ", level=" << *levelParameter << " }");
     juce::ScopedNoDenormals noDenormals;
-    auto totalNumInputChannels  = getTotalNumInputChannels();
-    auto totalNumOutputChannels = getTotalNumOutputChannels();
-
-
-
+    int totalNumInputChannels  = getTotalNumInputChannels();
+    int totalNumOutputChannels = getTotalNumOutputChannels();
 
     // In case we have more outputs than inputs, this code clears any output
     // channels that didn't contain input data, (because these aren't
@@ -169,7 +165,7 @@ void BevyDistortionAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
     // This is here to avoid people getting screaming feedback
     // when they first compile a plugin, but obviously you don't need to keep
     // this code if your algorithm always overwrites all the output channels.
-    for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
+    for (int i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
     // This is the place where you'd normally do the guts of your plugin's
@@ -181,7 +177,7 @@ void BevyDistortionAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
     
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
-        auto* outputData = buffer.getWritePointer (channel);
+        float* outputData = buffer.getWritePointer (channel);
         const float* inputData = buffer.getReadPointer(channel);
 
         distortion.process(buffer.getNumSamples(), outputData, *driveParameter, *factorParameter, &chosenDistortion());
@@ -209,7 +205,7 @@ void BevyDistortionAudioProcessor::getStateInformation (juce::MemoryBlock& destD
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
 
-    auto state = parameters.copyState();
+    juce::ValueTree state = parameters.copyState();
     std::unique_ptr<juce::XmlElement> xml(state.createXml());
     copyXmlToBinary(*xml, destData);
 }
@@ -232,7 +228,7 @@ void BevyDistortionAudioProcessor::setStateInformation (const void* data, int si
 Clipping& BevyDistortionAudioProcessor::chosenDistortion()
 {
     // Get the parameter and cast it to AudioParameterChoice
-    auto* typeChoiceParameter = dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter("type"));
+    juce::AudioParameterChoice* typeChoiceParameter = dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter("type"));
     int choice = typeChoiceParameter == nullptr ? 1 : typeChoiceParameter->getIndex() + 1; // Get the current choice index
 
     switch (choice) {
