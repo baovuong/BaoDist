@@ -14,7 +14,7 @@
 
 void CubicSoftClipping::clip(float* samples, int sampleIndex, float factor)
 {
-    float sign = Helper::sgn(samples[sampleIndex]);
+    const float sign = Helper::sgn(samples[sampleIndex]);
 
     if (fabsf(samples[sampleIndex]) > Helper::kTwoThirds)
     {

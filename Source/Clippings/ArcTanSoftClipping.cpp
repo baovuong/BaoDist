@@ -11,15 +11,16 @@
 #include <JuceHeader.h>
 
 #include "ArcTanSoftClipping.h"
+#include "../Helper.h"
 
-#define FACTOR_SCALE 5
-#define BOTTOM_FACTOR 0.5
+constexpr float kTop = 5.f;
+constexpr float kBottom = .5f;
 
 using namespace juce;
 
 void ArcTanSoftClipping::clip(float* samples, int sampleIndex, float factor)
 {
-    samples[sampleIndex] = 2 / MathConstants<float>::pi * atanf((factor * (FACTOR_SCALE - BOTTOM_FACTOR) + BOTTOM_FACTOR) * samples[sampleIndex]);
+    samples[sampleIndex] = 2 / MathConstants<float>::pi * atanf(Helper::scale(factor, kBottom, kTop) * samples[sampleIndex]);
 }
 
 bool ArcTanSoftClipping::hasFactor()
