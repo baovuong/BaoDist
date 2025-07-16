@@ -9,16 +9,17 @@
 */
 
 #pragma once
-class Helper
+
+namespace Helper
 {
-public:
+    constexpr float kTwoThirds = 2.f / 3.f;
     
-    static float scale(float factor, float bottom, float top);
-    static bool isBetween(float input, float bottom, float top);
+    float scale(float factor, float bottom, float top);
+    bool isBetween(float input, float bottom, float top);
     
     // reference: https://stackoverflow.com/questions/1903954/is-there-a-standard-sign-function-signum-sgn-in-c-c
     template <typename T> static int sgn(T val) 
     {
         return (T(0) < val) - (val < T(0));
     }
-};
+}

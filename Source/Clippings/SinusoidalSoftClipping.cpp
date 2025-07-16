@@ -14,10 +14,9 @@
 
 void SinusoidalSoftClipping::clip(float* samples, int sampleIndex, float factor)
 {
-    float a = Helper::scale(factor, 0.5f, 2.0f);
-    float b = 1.0f / (2 * a);
-
-    float absValue = abs(samples[sampleIndex]);
+    const float a = Helper::scale(factor, 0.5f, 2.0f);
+    const float b = 1.0f / (2 * a);
+    const float absValue = fabsf(samples[sampleIndex]);
 
     // sinusoidal soft clipping piecewise function
     if (absValue > b)

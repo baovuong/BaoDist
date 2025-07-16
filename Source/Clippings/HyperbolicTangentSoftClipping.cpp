@@ -14,7 +14,7 @@
 
 void HyperbolicTangentSoftClipping::clip(float* samples, int sampleIndex, float factor)
 {
-    samples[sampleIndex] = tanh(5 * (factor * 0.8f + 0.2f) * samples[sampleIndex]);
+    samples[sampleIndex] = tanhf(5.f * (factor * .8f + .2f) * samples[sampleIndex]);
 }
 
 bool HyperbolicTangentSoftClipping::hasFactor()

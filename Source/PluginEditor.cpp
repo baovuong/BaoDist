@@ -20,7 +20,7 @@ BevyDistortionAudioProcessorEditor::BevyDistortionAudioProcessorEditor(BevyDisto
 	setLookAndFeel(&lookAndFeel);
 
 	// Set up the title label
-	titleLabel.setText("BEVY DISTORTION", juce::dontSendNotification);
+	titleLabel.setText("BAOFX DISTORTION", juce::dontSendNotification);
 	//titleLabel.setFont(juce::FontOptions(
 	//	getHeight() / titleLableHeight));
 	titleLabel.setFont(juce::FontOptions(customFonts.getImpacted().getTypefaceName(), getHeight() / titleLabelHeight, juce::Font::plain));
@@ -73,7 +73,7 @@ BevyDistortionAudioProcessorEditor::BevyDistortionAudioProcessorEditor(BevyDisto
 	// populate the distortionMenu 
 	
 	// TODO genereated by copilot, so double check
-	auto* choiceParameter = dynamic_cast<juce::AudioParameterChoice*>(valueTreeState.getParameter("type"));
+	juce::AudioParameterChoice* choiceParameter = dynamic_cast<juce::AudioParameterChoice*>(valueTreeState.getParameter("type"));
 	if (choiceParameter != nullptr)
 	{
 		// Add all choices from the parameter
@@ -130,15 +130,15 @@ void BevyDistortionAudioProcessorEditor::resized()
 {
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
-	auto area = getLocalBounds();
+	juce::Rectangle<int> area = getLocalBounds();
 
 	titleLabel.setBounds(area.removeFromTop(getHeight() / 5).reduced(10));
 	footer.setBounds(area.removeFromBottom(getHeight() / 25));
 
 	typeMenu.setBounds(area.removeFromTop(getHeight() / 10).reduced(getWidth() / 20, 0));
 
-	auto knobArea = area.reduced(10, 20);
-	auto knobWidth = knobArea.getWidth() / 3;  // Divide space into thirds
+	juce::Rectangle<int> knobArea = area.reduced(10, 20);
+	int knobWidth = knobArea.getWidth() / 3;  // Divide space into thirds
 	driveKnob.setBounds(knobArea.removeFromLeft(knobWidth).reduced(30));
 	factorKnob.setBounds(knobArea.removeFromLeft(knobWidth).reduced(30));  // Add factor knob in the middle
 	levelKnob.setBounds(knobArea.reduced(30));  // Level knob takes the remaining space
@@ -150,7 +150,7 @@ void BevyDistortionAudioProcessorEditor::distortionMenuChanged()
 	factorKnob.setEnabled(audioProcessor.chosenDistortion().hasFactor());
 
 	// state change
-	auto* param = dynamic_cast<juce::AudioParameterChoice*>(valueTreeState.getParameter("type"));
+	juce::AudioParameterChoice* param = dynamic_cast<juce::AudioParameterChoice*>(valueTreeState.getParameter("type"));
 	if (param != nullptr)
 		param->setValueNotifyingHost((float)(typeMenu.getSelectedId() - 1) / (float)(param->getAllValueStrings().size() - 1));
 }

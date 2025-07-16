@@ -11,6 +11,8 @@
 #include "Helper.h"
 #include <JuceHeader.h>
 
+using namespace Helper;
+
 float Helper::scale(float factor, float bottom, float top)
 {
     return factor * (top - bottom) + bottom;
