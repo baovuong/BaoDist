@@ -84,8 +84,6 @@ BevyDistortionAudioProcessorEditor::BevyDistortionAudioProcessorEditor(BevyDisto
 
 		// Set initial value
 		typeMenu.setSelectedId(choiceParameter->getIndex() + 1);
-
-		//typeMenu.onChange = [this] { distortionMenuChanged(); };
 	}
 	addAndMakeVisible(typeMenu);
 
@@ -144,15 +142,7 @@ void BevyDistortionAudioProcessorEditor::resized()
 	levelKnob.setBounds(knobArea.reduced(30));  // Level knob takes the remaining space
 }
 
-void BevyDistortionAudioProcessorEditor::distortionMenuChanged()
+void BevyDistortionAudioProcessorEditor::updateFactorKnob(bool enabled)
 {
-	// UI change
-	//audioProcessor.setClipping((ClipType)(typeMenu.getSelectedId() - 1));
-
-
-	// state change
-	//juce::AudioParameterChoice* param = dynamic_cast<juce::AudioParameterChoice*>(valueTreeState.getParameter("type"));
-	//if (param != nullptr)
-	//	param->setValueNotifyingHost((float) (typeMenu.getSelectedId() - 1) / (float)(param->getAllValueStrings().size() - 1));
-	factorKnob.setEnabled(audioProcessor.hasFactor());
+	factorKnob.setEnabled(enabled);
 }

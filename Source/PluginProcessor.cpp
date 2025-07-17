@@ -232,7 +232,6 @@ void BevyDistortionAudioProcessor::parameterChanged(const juce::String& paramete
 {
     if (parameterID == "type")
     {
-		DBG("Parameter changed: " << parameterID << " to " << newValue);
         // Update the clipping type based on the parameter change
         ClipType newClipType = static_cast<ClipType>(static_cast<int>(newValue));
         switch (newClipType)
@@ -268,6 +267,15 @@ void BevyDistortionAudioProcessor::parameterChanged(const juce::String& paramete
             jassertfalse; // This should never happen, but if it does, we default to hard clipping
             chosenClipping = &hardClipping;
         }
+
+        juce::MessageManager::callAsync([this]()
+        {
+            // Notify the editor to update the UI
+            if (auto* editor = dynamic_cast<BevyDistortionAudioProcessorEditor*>(getActiveEditor()))
+            {
+                editor->updateFactorKnob(chosenClipping->hasFactor());
+            }
+		});
     }
 }
 
