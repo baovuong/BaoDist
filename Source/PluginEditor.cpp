@@ -85,7 +85,7 @@ BevyDistortionAudioProcessorEditor::BevyDistortionAudioProcessorEditor(BevyDisto
 		// Set initial value
 		typeMenu.setSelectedId(choiceParameter->getIndex() + 1);
 
-		typeMenu.onChange = [this] { distortionMenuChanged(); };
+		//typeMenu.onChange = [this] { distortionMenuChanged(); };
 	}
 	addAndMakeVisible(typeMenu);
 
@@ -103,7 +103,7 @@ BevyDistortionAudioProcessorEditor::BevyDistortionAudioProcessorEditor(BevyDisto
 	footerText += ProjectInfo::companyName;
 	footer.setText(footerText, juce::dontSendNotification);
 	footer.setJustificationType(juce::Justification::right);
-	footer.setFont(juce::FontOptions(getHeight() / 30));
+	footer.setFont(juce::FontOptions(getHeight() / 30.f));
 	addAndMakeVisible(footer);
 }
 
@@ -147,10 +147,12 @@ void BevyDistortionAudioProcessorEditor::resized()
 void BevyDistortionAudioProcessorEditor::distortionMenuChanged()
 {
 	// UI change
-	factorKnob.setEnabled(audioProcessor.chosenDistortion().hasFactor());
+	//audioProcessor.setClipping((ClipType)(typeMenu.getSelectedId() - 1));
+
 
 	// state change
-	juce::AudioParameterChoice* param = dynamic_cast<juce::AudioParameterChoice*>(valueTreeState.getParameter("type"));
-	if (param != nullptr)
-		param->setValueNotifyingHost((float)(typeMenu.getSelectedId() - 1) / (float)(param->getAllValueStrings().size() - 1));
+	//juce::AudioParameterChoice* param = dynamic_cast<juce::AudioParameterChoice*>(valueTreeState.getParameter("type"));
+	//if (param != nullptr)
+	//	param->setValueNotifyingHost((float) (typeMenu.getSelectedId() - 1) / (float)(param->getAllValueStrings().size() - 1));
+	factorKnob.setEnabled(audioProcessor.hasFactor());
 }

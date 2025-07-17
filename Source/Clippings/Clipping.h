@@ -10,6 +10,23 @@
 
 #pragma once
 
+enum ClipType
+{
+    kClippingTypeHard,
+	kClippingTypeSoftArcTan,
+	kClippingTypeSoftHomographic,
+	kClippingTypeSoftHyperbolicTangent,
+	kClippingTypeSoftSinusoidal,
+	kClippingTypeSoftExponential,
+	kClippingTypeSoftTwoStageQuadratic,
+	kClippingTypeSoftCubic,
+	kClippingTypeSoftReciprocal,
+
+	kClippingTypeCount,
+	kClippingTypeInvalid = -1
+};
+
+
 class Clipping
 {
 public:

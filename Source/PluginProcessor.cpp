@@ -45,10 +45,13 @@ BevyDistortionAudioProcessor::BevyDistortionAudioProcessor()
     levelParameter = parameters.getRawParameterValue("level");
     factorParameter = parameters.getRawParameterValue("factor");
     typeParameter = parameters.getRawParameterValue("type");
+
+    parameters.addParameterListener("type", this);
 }
 
 BevyDistortionAudioProcessor::~BevyDistortionAudioProcessor()
 {
+	parameters.removeParameterListener("type", this);
 }
 
 //==============================================================================
@@ -174,13 +177,13 @@ void BevyDistortionAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
     // the samples and the outer loop is handling the channels.
     // Alternatively, you can process the samples with the channels
     // interleaved by keeping the same state.
-    
+
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
         float* outputData = buffer.getWritePointer (channel);
         const float* inputData = buffer.getReadPointer(channel);
 
-        distortion.process(buffer.getNumSamples(), outputData, *driveParameter, *factorParameter, &chosenDistortion());
+        distortion.process(buffer.getNumSamples(), outputData, *driveParameter, *factorParameter, chosenClipping);
 
         // apply level
         buffer.applyGain(*levelParameter);
@@ -225,43 +228,56 @@ void BevyDistortionAudioProcessor::setStateInformation (const void* data, int si
     }
 }
 
-Clipping& BevyDistortionAudioProcessor::chosenDistortion()
+void BevyDistortionAudioProcessor::parameterChanged(const juce::String& parameterID, float newValue)
 {
-    // Get the parameter and cast it to AudioParameterChoice
-    juce::AudioParameterChoice* typeChoiceParameter = dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter("type"));
-    int choice = typeChoiceParameter == nullptr ? 1 : typeChoiceParameter->getIndex() + 1; // Get the current choice index
-
-    switch (choice) {
-    case 1:
-        return hardClipping;
-        break;
-    case 2:
-        return arcTanSoftClipping;
-        break;
-    case 3:
-        return homographicSoftClipping;
-        break;
-    case 4:
-        return hyperbolicTangentSoftClipping;
-        break;
-    case 5:
-        return sinusoidalSoftClipping;
-        break;
-    case 6:
-        return exponentialSoftClipping;
-        break;
-    case 7:
-        return twoStageQuadraticSoftClipping;
-        break;
-    case 8:
-        return cubicSoftClipping;
-        break;
-    case 9:
-        return reciprocalSoftClipping;
-        break;
+    if (parameterID == "type")
+    {
+		DBG("Parameter changed: " << parameterID << " to " << newValue);
+        // Update the clipping type based on the parameter change
+        ClipType newClipType = static_cast<ClipType>(static_cast<int>(newValue));
+        switch (newClipType)
+        {
+        case kClippingTypeHard:
+            chosenClipping = &hardClipping;
+            break;
+        case kClippingTypeSoftArcTan:
+            chosenClipping = &arcTanSoftClipping;
+            break;
+        case kClippingTypeSoftHomographic:
+            chosenClipping = &homographicSoftClipping;
+            break;
+        case kClippingTypeSoftHyperbolicTangent:
+            chosenClipping = &hyperbolicTangentSoftClipping;
+            break;
+        case kClippingTypeSoftSinusoidal:
+            chosenClipping = &sinusoidalSoftClipping;
+            break;
+        case kClippingTypeSoftExponential:
+            chosenClipping = &exponentialSoftClipping;
+            break;
+        case kClippingTypeSoftTwoStageQuadratic:
+            chosenClipping = &twoStageQuadraticSoftClipping;
+            break;
+        case kClippingTypeSoftCubic:
+            chosenClipping = &cubicSoftClipping;
+            break;
+        case kClippingTypeSoftReciprocal:
+            chosenClipping = &reciprocalSoftClipping;
+            break;
+        default:
+            jassertfalse; // This should never happen, but if it does, we default to hard clipping
+            chosenClipping = &hardClipping;
+        }
     }
+}
 
-    return hardClipping;
+bool BevyDistortionAudioProcessor::hasFactor() const
+{
+    if (chosenClipping != nullptr)
+    {
+        return chosenClipping->hasFactor();
+	}
+    return false;
 }
 
 //==============================================================================

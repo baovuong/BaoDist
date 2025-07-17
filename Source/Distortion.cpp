@@ -27,6 +27,7 @@ void Distortion::process(int numSamples, float* samples, float drive, float fact
         samples[sample] *= drive * kDriveScale;
 
         // hard-clipping distortion piecewise function
-        clipping->clip(samples, sample, factor);
+        if (clipping != nullptr)
+            clipping->clip(samples, sample, factor);
     }
 }

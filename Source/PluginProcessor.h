@@ -23,7 +23,8 @@
 //==============================================================================
 /**
 */
-class BevyDistortionAudioProcessor  : public juce::AudioProcessor
+class BevyDistortionAudioProcessor  : public juce::AudioProcessor,
+	public juce::AudioProcessorValueTreeState::Listener
 {
 public:
     //==============================================================================
@@ -64,7 +65,10 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
     //==============================================================================
-    Clipping& chosenDistortion();
+    void parameterChanged(const juce::String& parameterID, float newValue) override;
+
+    //==============================================================================
+    bool hasFactor() const;
 
 private:
 	juce::AudioProcessorValueTreeState parameters;
@@ -75,6 +79,7 @@ private:
 
     // Distortion 
     Distortion distortion;
+	Clipping* chosenClipping = nullptr;
 
     HardClipping hardClipping;
     ArcTanSoftClipping arcTanSoftClipping;
